@@ -18,6 +18,8 @@ export class MyApp {
 
   logged = false;
 
+  loading = false;
+
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
