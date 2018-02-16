@@ -8,5 +8,16 @@
 </ion-header>
 
 <ion-content>
-  <div style="position:relative;height:0;padding-bottom:56.34%"><iframe [src]="transformUrl()" style="position:absolute;width:100%;height:100%;left:0" width="100%" height="auto" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+  <div style="position:relative;height:0;padding-bottom:56.34%"><iframe [src]="transformUrl(url)" style="position:absolute;width:100%;height:100%;left:0" width="100%" height="auto" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+  <div padding>
+  	<button ion-button full (click)="takePicture()">
+		Take picture
+	</button>
+  </div>
+	
+	<img [src]="urlImage" width="100%" height="auto">
 </ion-content>
+
+
+
+
