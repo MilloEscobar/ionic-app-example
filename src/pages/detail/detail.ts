@@ -17,7 +17,6 @@ export class DetailPage {
     // If we navigated to this page, we will have an item available as a nav param
     
     this.selectedItem = navParams.get('item');
-    console.log(navParams);
   }
   // ngOnInit() {
   //   this.loader.loading = false;
