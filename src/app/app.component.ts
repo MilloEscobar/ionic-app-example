@@ -5,6 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
+import { LoaderComponent } from '../components/loader/loader';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -18,9 +21,7 @@ export class MyApp {
 
   logged = false;
 
-  loading = false;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public loader:LoaderComponent ,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
 
@@ -47,7 +48,13 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
   login() {
-    this.logged = true;
+    this.loader.loading = true;
+    
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      this.nav.setRoot(LoginPage);
+    },3000);
+    
+    
   }
   logout() {
     this.logged = false;
