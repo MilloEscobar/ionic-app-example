@@ -21,12 +21,12 @@ export class LoginPage {
 	constructor(public loader: LoaderComponent, public navCtrl: NavController, public navParams: NavParams){
 	}
 
-	ngOnInit() {
-		this.loader.loading = false;
-  	}
+	// ngOnInit() {
+	// 	this.loader.loading = false;
+	// }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    this.loader.loading = false;
   }
 
 }

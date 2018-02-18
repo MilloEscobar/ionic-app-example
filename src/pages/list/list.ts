@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { DetailPage } from '../detail/detail';
+import { LoaderComponent } from '../../components/loader/loader';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class ListPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -29,6 +30,14 @@ export class ListPage {
         icon: this.icons[i]
       });
     }
+  }
+
+  // ngOnInit() {
+  //   this.loader.loading = false;
+  // }
+
+  ionViewDidLoad() {
+    this.loader.loading = false;
   }
 
   itemTapped(event, item) {

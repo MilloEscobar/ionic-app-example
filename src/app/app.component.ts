@@ -52,7 +52,7 @@ export class MyApp {
     
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.nav.setRoot(LoginPage);
-    },3000);
+    },2000);
     
     
   }
