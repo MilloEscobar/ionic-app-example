@@ -8,7 +8,7 @@
 
   <ion-content>
     <ion-list>
-      <div *ngIf="logged" >
+      <div *ngIf="AuthenticatorProvider.logged" >
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           {{p.title}}
         </button>

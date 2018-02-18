@@ -8,6 +8,8 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { LoaderComponent } from '../components/loader/loader';
 
+import { AuthenticatorProvider } from '../providers/authenticator/authenticator';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -19,9 +21,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  logged = false;
-
-  constructor(public loader:LoaderComponent ,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(private AuthenticatorProvider: AuthenticatorProvider, public loader:LoaderComponent ,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
 
@@ -50,13 +50,15 @@ export class MyApp {
   login() {
     this.loader.loading = true;
     
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.nav.setRoot(LoginPage);
-    },2000);
-    
-    
+    setTimeout(()=>{    //<<<---    using ()=> 
+
+      this.nav.push(LoginPage, {
+        logged: false
+      });
+      // this.nav.setRoot(LoginPage);
+    },2000);  
   }
   logout() {
-    this.logged = false;
+    this.AuthenticatorProvider.logged = false;
   }
 }

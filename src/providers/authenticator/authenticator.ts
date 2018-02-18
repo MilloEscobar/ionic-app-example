@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class AuthenticatorProvider {
+	logged = false;
 
   constructor(public http: HttpClient) {
     console.log('Hello AuthenticatorProvider Provider');

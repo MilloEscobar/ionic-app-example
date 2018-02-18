@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
+
 import { LoaderComponent } from '../../components/loader/loader';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the LoginPage page.
@@ -18,7 +21,7 @@ import { LoaderComponent } from '../../components/loader/loader';
 export class LoginPage {
 
 
-	constructor(public loader: LoaderComponent, public navCtrl: NavController, public navParams: NavParams){
+	constructor(private AuthenticatorProvider:AuthenticatorProvider, public loader: LoaderComponent, public navCtrl: NavController, public navParams: NavParams){
 	}
 
 	// ngOnInit() {
@@ -29,4 +32,13 @@ export class LoginPage {
     this.loader.loading = false;
   }
 
+  login() {
+    this.loader.loading = true;
+    this.AuthenticatorProvider.logged = true;
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      this.navCtrl.setRoot(HomePage, {
+        logged: true
+      });
+    },2000);
+  }
 }
