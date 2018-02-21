@@ -50,21 +50,27 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component, {
-      page:page
-    });
+    this.loader.loading = true;
+    
+    setTimeout(()=>{
+      this.nav.setRoot(page.component, {
+        page:page
+      });
+    },1000);
+    
   }
+
   login() {
     this.loader.loading = true;
     
-    setTimeout(()=>{    //<<<---    using ()=> 
-
+    setTimeout(()=>{ 
       this.nav.push(LoginPage, {
         logged: false
       });
       // this.nav.setRoot(LoginPage);
-    },2000);  
+    },1000);  
   }
+  
   logout() {
     this.AuthenticatorProvider.logged = false;
   }

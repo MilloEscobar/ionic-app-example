@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { DetailPage } from '../detail/detail';
 import { LoaderComponent } from '../../components/loader/loader';
+import { HttpServiceProvider } from '../../providers/http-service/http-service';
 
 
 @Component({
@@ -14,21 +15,41 @@ export class ListPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams, public httpService: HttpServiceProvider) {
     // If we navigated to this page, we will have an item available as a nav param
-    this.pageInfo = navParams.get('page')
+    this.pageInfo = navParams.get('page');
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 0; i < 5; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[i]
-      });
+    if (this.pageInfo.title === "Courses") {
+      this.items = httpService.getCourses()
+      // .subscribe(
+      //   data => {
+      //       this.router.navigate(['/main']);           
+      //   },
+      //   error => {
+            
+      //       if (error.error == "Username or password is incorrect") {
+      //         this.alertMessage = {
+      //           message: "Username or password is incorrect",
+      //           type: "danger",
+      //         }
+      //       }
+      //   });
+    
+    } else {
+      this.items = httpService.getMyCourses()
+      // .subscribe(
+      //   data => {
+      //       this.router.navigate(['/main']);           
+      //   },
+      //   error => {
+            
+      //       if (error.error == "Username or password is incorrect") {
+      //         this.alertMessage = {
+      //           message: "Username or password is incorrect",
+      //           type: "danger",
+      //         }
+      //       }
+      //   });
     }
   }
 
@@ -42,8 +63,13 @@ export class ListPage {
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(DetailPage, {
-      item: item
-    });
+    this.loader.loading = true;
+    
+    setTimeout(()=>{
+      this.navCtrl.push(DetailPage, {
+        item: item
+      });
+    }, 1000);
   }
+
 }

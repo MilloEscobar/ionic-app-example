@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -18,6 +19,7 @@ import { DetailPage } from '../pages/detail/detail';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthenticatorProvider } from '../providers/authenticator/authenticator';
+import { HttpServiceProvider } from '../providers/http-service/http-service';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { AuthenticatorProvider } from '../providers/authenticator/authenticator'
     ComponentsModule,
     HttpClientModule,
     LoginPageModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -46,7 +49,8 @@ import { AuthenticatorProvider } from '../providers/authenticator/authenticator'
     SplashScreen,
     LoaderComponent,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthenticatorProvider
+    AuthenticatorProvider,
+    HttpServiceProvider
   ]
 })
 export class AppModule {}
