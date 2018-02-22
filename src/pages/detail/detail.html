@@ -19,6 +19,28 @@
         <span class="course-detail tag" *ngFor="let item of selectedItem.tags" text-capitalize>{{ item }}</span>
       </div>
     </div>
+  </div>
+  <div padding [innerHTML]="selectedItem.steps[stepNumber].info">
+  </div>
+  <div padding>
+    <h3>Questions</h3>
+    <div>
+      <h5>{{selectedItem.steps[stepNumber].questions[questionNumber].question}}</h5>
+      <div *ngFor="let answer of selectedItem.steps[stepNumber].questions[questionNumber].answers">
+        <input  [value]="answer.number" name="questionAnswer" [(ngModel)]="questionAnswer" class="form-check-input" type="radio"> {{answer.answer}}
+      </div>
+      <div padding>
+        <button *ngIf="questionNumber < (selectedItem.steps[stepNumber].questions.length-1)" ion-button full color="dark" (click)="nextQuestion()">
+          Next Question
+        </button>
+        <button *ngIf="!(questionNumber < (selectedItem.steps[stepNumber].questions.length-1)) && stepNumber < (selectedItem.steps.length-1)" ion-button full (click)="nextStep()">
+          Next step
+        </button>
+        <button *ngIf="(questionNumber >= (selectedItem.steps[stepNumber].questions.length-1)) && stepNumber >= (selectedItem.steps.length-1)" ion-button full color="secondary">
+          Course Done
+        </button>
+      </div>
+    </div>
     
   </div>
 </ion-content>

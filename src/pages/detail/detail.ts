@@ -13,6 +13,10 @@ export class DetailPage {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
+  stepNumber:number = 0;
+  questionAnswer;
+  questionNumber:number = 0;
+
 
   constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams,private sanitizer: DomSanitizer) {
     // If we navigated to this page, we will have an item available as a nav param
@@ -28,7 +32,25 @@ export class DetailPage {
   }
 
   transformUrl(url){
-      return this.sanitizer.bypassSecurityTrustResourceUrl(url)
-    }
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+  }
+
+  nextStep() {
+    this.stepNumber++;
+    this.questionNumber = 0;
+  }
+
+  prevStep() {
+    this.stepNumber++;
+    this.questionNumber = 0;
+  }
+
+  nextQuestion() {
+    this.questionNumber++;
+  }
+
+  prevQuestion() {
+    this.questionNumber--;
+  }
 
 }
