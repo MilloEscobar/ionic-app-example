@@ -52,23 +52,19 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.loader.loading = true;
     
-    setTimeout(()=>{
-      this.nav.setRoot(page.component, {
-        page:page
-      });
-    },1000);
+    this.nav.setRoot(page.component, {
+      page:page
+    });
     
   }
 
   login() {
     this.loader.loading = true;
     
-    setTimeout(()=>{ 
-      this.nav.push(LoginPage, {
-        logged: false
-      });
-      // this.nav.setRoot(LoginPage);
-    },1000);  
+    this.nav.push(LoginPage, {
+      logged: false
+    });
+    // this.nav.setRoot(LoginPage);
   }
   
   logout() {

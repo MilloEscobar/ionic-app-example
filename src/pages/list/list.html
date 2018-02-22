@@ -9,15 +9,16 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" class="course-item">
+      <ion-thumbnail item-start class="course-item-thumbnail">
+<!--         <img [src]="selectedItem.media[0].url"> -->
+        <div class="image" [ngStyle]="{'background-image': 'url(' + item.media[0].url + ')'}"></div>
+        <div class="opacity"></div>
+      </ion-thumbnail>
+      <h3>{{item.name}}</h3>
       <div class="item-note" item-end>
-        {{item.note}}
+        {{item.level}}
       </div>
     </button>
   </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
 </ion-content>

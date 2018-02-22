@@ -13,43 +13,56 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service';
 export class ListPage {
   pageInfo: any;
   icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  items: Array<{
+                id:  String,
+                name: String,
+                steps: Number,
+                questions:[{
+                  step: Number,
+                  question: String,
+                  answers: [{
+                    number : Number,
+                    answer: String,
+                    correct: Boolean
+                  }]
+                }],
+                media: [{
+                  name: String,
+                  url: String
+                }],
+                level: String,
+                tags: [String]
+            }>;
 
   constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams, public httpService: HttpServiceProvider) {
     // If we navigated to this page, we will have an item available as a nav param
     this.pageInfo = navParams.get('page');
 
     if (this.pageInfo.title === "Courses") {
-      this.items = httpService.getCourses()
-      // .subscribe(
-      //   data => {
-      //       this.router.navigate(['/main']);           
-      //   },
-      //   error => {
+      httpService.getCourses()
+      .subscribe(
+        data => {
+            console.log(data["data"]);  
+            this.items =  data["data"];  
+        },
+        error => {
             
-      //       if (error.error == "Username or password is incorrect") {
-      //         this.alertMessage = {
-      //           message: "Username or password is incorrect",
-      //           type: "danger",
-      //         }
-      //       }
-      //   });
+            if (error.error == "Username or password is incorrect") {
+            }
+        });
     
     } else {
-      this.items = httpService.getMyCourses()
-      // .subscribe(
-      //   data => {
-      //       this.router.navigate(['/main']);           
-      //   },
-      //   error => {
+      httpService.getCourses()
+      .subscribe(
+        data => {
+            console.log(data["data"]);  
+            this.items =  data["data"];  
+        },
+        error => {
             
-      //       if (error.error == "Username or password is incorrect") {
-      //         this.alertMessage = {
-      //           message: "Username or password is incorrect",
-      //           type: "danger",
-      //         }
-      //       }
-      //   });
+            if (error.error == "Username or password is incorrect") {
+            }
+        });
     }
   }
 
@@ -64,12 +77,10 @@ export class ListPage {
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
     this.loader.loading = true;
-    
-    setTimeout(()=>{
-      this.navCtrl.push(DetailPage, {
-        item: item
-      });
-    }, 1000);
+
+    this.navCtrl.push(DetailPage, {
+      item: item
+    });
   }
 
 }

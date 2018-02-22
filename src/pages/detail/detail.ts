@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { DomSanitizer} from '@angular/platform-browser';
 
 import { LoaderComponent } from '../../components/loader/loader';
 
@@ -13,7 +14,7 @@ export class DetailPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams,private sanitizer: DomSanitizer) {
     // If we navigated to this page, we will have an item available as a nav param
     
     this.selectedItem = navParams.get('item');
@@ -25,4 +26,9 @@ export class DetailPage {
   ionViewDidLoad() {
     this.loader.loading = false;
   }
+
+  transformUrl(url){
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+    }
+
 }

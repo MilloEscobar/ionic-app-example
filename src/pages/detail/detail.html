@@ -1,16 +1,24 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar class="detail-navbar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{selectedItem.title}}</ion-title>
+    <ion-title>{{selectedItem.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content >
-  <div padding>
-    <ion-icon [name]="selectedItem.icon" item-start></ion-icon>
-    <div>You navigated here from <b>{{selectedItem.title}}</b></div>
-
+<ion-content class="course-detail">
+  <div class="course-image">
+    <!-- <h1 padding class="course-title">{{selectedItem.name}}</h1> -->
+    <!-- <img [src]="selectedItem.media[0].url" width="100%" height="auto"> -->
+    <div class="image" [ngStyle]="{'background-image': 'url(' + selectedItem.media[0].url + ')'}"></div>
+    <div class="opacity"></div>
+    <div class="course-info">
+      <span class="course-detail {{selectedItem.level}}">{{selectedItem.level}}</span>
+      <div class="tags">
+        <span class="course-detail tag" *ngFor="let item of selectedItem.tags">{{item}}</span>
+      </div>
+    </div>
+    
   </div>
 </ion-content>

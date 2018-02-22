@@ -1,3 +1,82 @@
-page-list {
+ion-header.header {
+	&::after {
+		display: none;
+	}
+}
+.toolbar.detail-navbar {
+	.toolbar-background {
+		background-color: transparent;
+	}
+	.toolbar-content , .toolbar-title {
+		color: #fff;
+		font-weight: lighter;
+		font-size: 16px;
+	}
+	.button-inner , .back-button-icon{
+		color: #fff;
+		font-weight: lighter;
+		// font-size: 20px;
+	}
+	
+}
+.course-detail {
+	.scroll-content,.fixed-content {
+		margin: 0 !important;
+	}
+	.course-title {
+		margin: 0;
+	}
+	.course-image {
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+		height: 21rem;
 
+		.opacity {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background: #000;
+			opacity: 0.5;
+		}
+
+		.image {
+			background-position: center center;
+			background-repeat: no-repeat;
+			height: 100%;
+			width: 100%;
+			top: 0;
+			left: 0;
+			background-size: cover;
+			position: absolute;
+		}
+
+		.course-info {
+			position: absolute;
+			padding: 1.3rem 2.3rem;
+			bottom: 0%;
+			color: #fff;
+			width: 100%;
+			// background-color: rgba(0,0,0,0.5);
+
+			.course-detail {
+				text-transform: capitalize;
+				&.tag {
+					margin-right: 1rem;
+					&:last-child {
+						margin: 0;
+					}
+				}
+				&.beginer {
+					color: #5cb85c;
+				}
+			}
+
+			.tags {
+				float: right;
+			}
+		}
+	}
 }

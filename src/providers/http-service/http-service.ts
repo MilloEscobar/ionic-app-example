@@ -20,18 +20,20 @@ export class HttpServiceProvider {
     console.log('Hello HttpServiceProvider Provider');
   }
 
-  getCourses (): Array<{title: string, note: string, icon: string}> {
+  getCourses () {
 
-    this.items = [];
-    for (let i = 0; i < 5; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[i]
-      });
-    }
+    return this.http.get("http://localhost:3000/api/course");
 
-  	return this.items ;
+   //  this.items = [];
+   //  for (let i = 0; i < 5; i++) {
+   //    this.items.push({
+   //      title: 'Item ' + i,
+   //      note: 'This is item #' + i,
+   //      icon: this.icons[i]
+   //    });
+   //  }
+
+  	// return this.items ;
   }
 
   getCourse (): {title: string, note: string, icon: string}  {
