@@ -8,12 +8,13 @@ ion-header.header {
 		background-color: transparent;
 	}
 	.toolbar-content , .toolbar-title {
-		color: #fff;
+		color: color($colors, white , base);
 		font-weight: lighter;
 		font-size: 16px;
+		padding-left: 0;
 	}
 	.button-inner , .back-button-icon{
-		color: #fff;
+		color: color($colors, white , base);
 		font-weight: lighter;
 		// font-size: 20px;
 	}
@@ -38,7 +39,7 @@ ion-header.header {
 			height: 100%;
 			top: 0;
 			left: 0;
-			background: #000;
+			background: color($colors, black , base);
 			opacity: 0.5;
 		}
 
@@ -57,20 +58,16 @@ ion-header.header {
 			position: absolute;
 			padding: 1.3rem 2.3rem;
 			bottom: 0%;
-			color: #fff;
+			color: color($colors, white , base);
 			width: 100%;
 			// background-color: rgba(0,0,0,0.5);
 
 			.course-detail {
-				text-transform: capitalize;
 				&.tag {
 					margin-right: 1rem;
 					&:last-child {
 						margin: 0;
 					}
-				}
-				&.beginer {
-					color: #5cb85c;
 				}
 			}
 

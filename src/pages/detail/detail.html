@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{selectedItem.name}}</ion-title>
+    <ion-title text-capitalize>{{selectedItem.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,9 +14,9 @@
     <div class="image" [ngStyle]="{'background-image': 'url(' + selectedItem.media[0].url + ')'}"></div>
     <div class="opacity"></div>
     <div class="course-info">
-      <span class="course-detail {{selectedItem.level}}">{{selectedItem.level}}</span>
+      <span class="course-detail {{selectedItem.level}}" text-capitalize>{{selectedItem.level}}</span>
       <div class="tags">
-        <span class="course-detail tag" *ngFor="let item of selectedItem.tags">{{item}}</span>
+        <span class="course-detail tag" *ngFor="let item of selectedItem.tags" text-capitalize>{{ item }}</span>
       </div>
     </div>
     

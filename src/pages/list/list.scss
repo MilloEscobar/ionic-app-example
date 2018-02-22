@@ -1,5 +1,8 @@
 .course-item {
 	padding: 0;
+	&:nth-child(even) {
+		background: color($colors, light , base);
+	}
 
 	ion-thumbnail.course-item-thumbnail {
 		margin: 0;
@@ -14,7 +17,7 @@
 			height: 100%;
 			top: 0;
 			left: 0;
-			background: #000;
+			background: color($colors, black , base);
 			opacity: 0.3;
 		}
 
@@ -32,5 +35,6 @@
 
 	.item-inner {
 		padding-left: 10px;
+		border: none !important;
 	}
 }

@@ -35,3 +35,13 @@
 		top: 50%;
 	}
 }
+
+.beginer {
+	color: color($colors, success , base);
+}
+.intermediate {
+	color: color($colors, warning , base);;
+}
+.advanced {
+	color: color($colors, danger , base);;
+}
