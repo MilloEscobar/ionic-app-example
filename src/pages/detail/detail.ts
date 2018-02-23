@@ -35,6 +35,18 @@ export class DetailPage {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url)
   }
 
+  onScroll(event) {
+    // console.log(event);
+    if (event.scrollTop <= 154 ) {
+      let element = document.getElementById('ion-navbar').childNodes[0];
+      let backgroundColor = event.scrollTop / 154;
+      element.style.backgroundColor = "rgba(0,0,0,"+ backgroundColor+")";
+    } if (event.scrollTop > 154 ) {
+      let element = document.getElementById('ion-navbar').childNodes[0];
+      element.style.backgroundColor = "rgba(0,0,0,1)";
+    } 
+  }
+
   nextStep() {
     this.stepNumber++;
     this.questionNumber = 0;

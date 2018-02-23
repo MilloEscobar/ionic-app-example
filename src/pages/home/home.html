@@ -1,14 +1,14 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar id="ion-navbar" class="transparent-navbar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>{{pageInfo.title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <div style="position:relative;height:0;padding-bottom:56.34%"><iframe [src]="transformUrl(url)" style="position:absolute;width:100%;height:100%;left:0" width="100%" height="auto" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+<ion-content (ionScroll)="onScroll($event)">
+  <div style="position:relative;height:0;padding-bottom:56.34%"><iframe [src]="transformUrl(url)" style="position:absolute;width:100%;height:100%;left:0" width="100%" height="auto" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen frameborder="0"></iframe></div>
   <div padding>
   	<button ion-button full (click)="takePicture()">
 		Take picture
@@ -16,6 +16,9 @@
   </div>
 	
 	<img [src]="urlImage" width="100%" height="auto">
+  <img [src]="urlImage" width="100%" height="auto">
+  <img [src]="urlImage" width="100%" height="auto">
+  <img [src]="urlImage" width="100%" height="auto">
 </ion-content>
 
 

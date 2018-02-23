@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -10,12 +10,20 @@ import { LoaderComponent } from '../../components/loader/loader';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  pageInfo: any;
   urlImage;
 	urlFixed;
-	url = "https://www.youtube.com/embed/fKopy74weus?ecver=2";
+	url = "https://www.youtube.com/embed/fKopy74weus?"+"&theme=dark&color=white&autohide=1&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3";
 
-	constructor(public loader:LoaderComponent , public navCtrl: NavController, private sanitizer: DomSanitizer, private camera: Camera) {
+	constructor(public navParams: NavParams, public loader:LoaderComponent , public navCtrl: NavController, private sanitizer: DomSanitizer, private camera: Camera) {
 		
+    
+    if (navParams.get('page')) {
+      this.pageInfo = navParams.get('page');
+      console.log(this.pageInfo);
+    } else {
+      this.pageInfo = { title: 'Micro Bible', component: HomePage };
+    }
 	}
 
   takePicture() {
@@ -33,6 +41,17 @@ export class HomePage {
   }, (err) => {
    // Handle error
   });
+  }
+
+  onScroll(event) {
+    if (event.scrollTop <= 154 ) {
+      let element = document.getElementById('ion-navbar').childNodes[0];
+      let backgroundColor = event.scrollTop / 154;
+      element.style.backgroundColor = "rgba(0,0,0,"+ backgroundColor+")";
+    } if (event.scrollTop > 154 ) {
+      let element = document.getElementById('ion-navbar').childNodes[0];
+      element.style.backgroundColor = "rgba(0,0,0,1)";
+    } 
   }
 
 	ngOnInit() {

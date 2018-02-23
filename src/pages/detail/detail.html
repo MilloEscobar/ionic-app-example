@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar class="detail-navbar">
+  <ion-navbar id="ion-navbar" class="transparent-navbar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="course-detail">
+<ion-content (ionScroll)="onScroll($event)" class="course-detail">
   <div class="course-image">
     <!-- <h1 padding class="course-title">{{selectedItem.name}}</h1> -->
     <!-- <img [src]="selectedItem.media[0].url" width="100%" height="auto"> -->

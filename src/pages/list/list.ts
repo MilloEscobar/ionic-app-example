@@ -42,7 +42,7 @@ export class ListPage {
       httpService.getCourses()
       .subscribe(
         data => {
-            console.log(data["data"]);  
+            // console.log(data["data"]);  
             this.items =  data["data"];  
         },
         error => {

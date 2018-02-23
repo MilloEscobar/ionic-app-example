@@ -15,7 +15,28 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
+ion-header.header {
+	&::after {
+		display: none;
+	}
+}
+.toolbar.transparent-navbar {
+	.toolbar-background {
+		background-color: rgba(0,0,0,0.0);
+	}
+	.toolbar-content , .toolbar-title {
+		color: color($colors, white , base);
+		font-weight: lighter;
+		font-size: 16px;
+		padding-left: 0;
+	}
+	.button-inner , .back-button-icon{
+		color: color($colors, white , base);
+		font-weight: lighter;
+		// font-size: 20px;
+	}
+	
+}
 .menuClose {
 	float: right;
 }

@@ -1,25 +1,3 @@
-ion-header.header {
-	&::after {
-		display: none;
-	}
-}
-.toolbar.detail-navbar {
-	.toolbar-background {
-		background-color: transparent;
-	}
-	.toolbar-content , .toolbar-title {
-		color: color($colors, white , base);
-		font-weight: lighter;
-		font-size: 16px;
-		padding-left: 0;
-	}
-	.button-inner , .back-button-icon{
-		color: color($colors, white , base);
-		font-weight: lighter;
-		// font-size: 20px;
-	}
-	
-}
 .course-detail {
 	.scroll-content,.fixed-content {
 		margin: 0 !important;
