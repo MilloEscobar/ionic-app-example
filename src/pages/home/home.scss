@@ -2,6 +2,9 @@ page-home {
 	.scroll-content,.fixed-content {
 		margin: 0 !important;
 	}
+	#title-transparent .toolbar-title {
+		color: transparent;
+	}
 
 		.home-image {
 		position: relative;

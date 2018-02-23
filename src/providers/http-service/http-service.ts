@@ -21,19 +21,11 @@ export class HttpServiceProvider {
   }
 
   getCourses () {
-
     return this.http.get("http://10.28.6.16:3000/api/course");
+  }
 
-   //  this.items = [];
-   //  for (let i = 0; i < 5; i++) {
-   //    this.items.push({
-   //      title: 'Item ' + i,
-   //      note: 'This is item #' + i,
-   //      icon: this.icons[i]
-   //    });
-   //  }
-
-  	// return this.items ;
+  getLastCourses () {
+    return this.http.get("http://10.28.6.16:3000/api/course/last/8");
   }
 
   getCourse (): {title: string, note: string, icon: string}  {
