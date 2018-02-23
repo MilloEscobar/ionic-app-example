@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar id="ion-navbar" class="transparent-navbar">
+  <ion-navbar id="ion-navbar-detail" class="transparent-navbar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -23,6 +23,11 @@
 
   <div class="step-content">
     <h3 no-margin>Lesson {{ stepNumber+1 }}</h3>
+    <div padding margin class="no-padding-bottom no-margin-top">
+      <button *ngIf="!reading" ion-button full (click)="readText();">Read</button>
+      <button *ngIf="reading" ion-button full (click)="stopReading();">Stop</button>
+    </div>
+    
     <div class="step-text" [innerHTML]="selectedItem.steps[stepNumber].info">
     </div>
       <h3>Question {{ questionNumber+1 }}</h3>

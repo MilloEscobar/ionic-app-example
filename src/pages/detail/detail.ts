@@ -2,6 +2,8 @@ import { Component,ViewChild } from '@angular/core';
 import { NavController, NavParams ,Content } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 
+import { TextToSpeech } from '@ionic-native/text-to-speech';
+
 import { ListPage } from '../../pages/list/list';
 import { LoaderComponent } from '../../components/loader/loader';
 
@@ -20,11 +22,12 @@ export class DetailPage {
   stepNumber:number = 0;
   questionAnswer;
   questionNumber:number = 0;
+  reading:boolean=false;
 
   courseDoneAttr = { title: 'Courses', component: ListPage };
 
 
-  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams,private sanitizer: DomSanitizer) {
+  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams,private sanitizer: DomSanitizer, private tts: TextToSpeech) {
     // If we navigated to this page, we will have an item available as a nav param
     
     this.selectedItem = navParams.get('item');
@@ -44,8 +47,8 @@ export class DetailPage {
   }
 
   onScroll(event) {
-    // console.log(event);
-    let element = document.getElementById('ion-navbar').childNodes[0];
+    
+    let element = document.getElementById('ion-navbar-detail').childNodes[0];
     if (element["style"]) {
       if (event.scrollTop <= 154 ) {
         let backgroundColor = event.scrollTop / 154;
@@ -93,4 +96,17 @@ export class DetailPage {
     
   }
 
+  readText() {
+    this.reading = true;
+    this.tts.speak(this.selectedItem.steps[this.stepNumber].info)
+    .then(() => console.log('Success'))
+    .catch((reason: any) => console.log(reason));
+  }
+
+  stopReading() { 
+    this.reading = false;
+    this.tts.stop()
+    .then(() => console.log('Success'))
+    .catch((reason: any) => console.log(reason));
+  }
 }

@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 import { ComponentsModule } from '../components/components.module';
 import { LoginPageModule } from '../pages/login/login.module';
@@ -48,6 +49,7 @@ import { HttpServiceProvider } from '../providers/http-service/http-service';
     Camera,
     SplashScreen,
     LoaderComponent,
+    TextToSpeech,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthenticatorProvider,
     HttpServiceProvider
