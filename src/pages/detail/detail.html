@@ -20,27 +20,41 @@
       </div>
     </div>
   </div>
-  <div padding [innerHTML]="selectedItem.steps[stepNumber].info">
-  </div>
-  <div padding>
-    <h3>Questions</h3>
-    <div>
-      <h5>{{selectedItem.steps[stepNumber].questions[questionNumber].question}}</h5>
-      <div *ngFor="let answer of selectedItem.steps[stepNumber].questions[questionNumber].answers">
-        <input  [value]="answer.number" name="questionAnswer" [(ngModel)]="questionAnswer" class="form-check-input" type="radio"> {{answer.answer}}
-      </div>
-      <div padding>
-        <button *ngIf="questionNumber < (selectedItem.steps[stepNumber].questions.length-1)" ion-button full color="dark" (click)="nextQuestion()">
-          Next Question
-        </button>
-        <button *ngIf="!(questionNumber < (selectedItem.steps[stepNumber].questions.length-1)) && stepNumber < (selectedItem.steps.length-1)" ion-button full (click)="nextStep()">
-          Next step
-        </button>
-        <button *ngIf="(questionNumber >= (selectedItem.steps[stepNumber].questions.length-1)) && stepNumber >= (selectedItem.steps.length-1)" ion-button full color="secondary">
-          Course Done
-        </button>
-      </div>
+
+  <div class="step-content">
+    <h3 no-margin>Lesson {{ stepNumber+1 }}</h3>
+    <div class="step-text" [innerHTML]="selectedItem.steps[stepNumber].info">
     </div>
-    
+      <h3>Question {{ questionNumber+1 }}</h3>
+      <div padding>
+        <div padding class="no-padding-top container">
+          <h5>{{selectedItem.steps[stepNumber].questions[questionNumber].question}}</h5>
+          <form #myForm="ngForm">
+            <ul padding-bottom>
+
+              <li *ngFor="let answer of selectedItem.steps[stepNumber].questions[questionNumber].answers" [class.checked]="checked" [class.correct]="answer.correct">
+                <input id="question-{{answer.number}}" (click)="check()" [value]="answer.number" name="questionAnswer" [(ngModel)]="questionAnswer" type="radio">
+                <label for="question-{{answer.number}}" [class.good]="answer.correct">{{answer.answer}}</label>
+                
+                <div [class.check]="true" [class.good]="answer.correct"></div>
+              </li>
+
+            </ul>
+          </form>
+          <div padding-top *ngIf="checked">
+            <button *ngIf="questionNumber < (selectedItem.steps[stepNumber].questions.length-1)" ion-button full color="dark" (click)="nextQuestion(); myForm.reset()">
+            Next Question
+            </button>
+            <button *ngIf="!(questionNumber < (selectedItem.steps[stepNumber].questions.length-1)) && stepNumber < (selectedItem.steps.length-1)" ion-button full (click)="nextStep(); myForm.reset()">
+              Next step
+            </button>
+            <button *ngIf="(questionNumber >= (selectedItem.steps[stepNumber].questions.length-1)) && stepNumber >= (selectedItem.steps.length-1)" ion-button full color="secondary" (click)="courseDone(); myForm.reset()">
+              Course Done
+            </button>
+          </div>
+        </div>
+      </div>
   </div>
+  
+  
 </ion-content>

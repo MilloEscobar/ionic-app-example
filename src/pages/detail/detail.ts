@@ -1,7 +1,8 @@
-import { Component} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { NavController, NavParams ,Content } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 
+import { ListPage } from '../../pages/list/list';
 import { LoaderComponent } from '../../components/loader/loader';
 
 @Component({
@@ -10,7 +11,10 @@ import { LoaderComponent } from '../../components/loader/loader';
 })
 
 export class DetailPage {
+  @ViewChild(Content) content: Content;
+
   selectedItem: any;
+  checked:boolean = false;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
   stepNumber:number = 0;
@@ -48,22 +52,37 @@ export class DetailPage {
     }
   }
 
-  nextStep() {
-    this.stepNumber++;
-    this.questionNumber = 0;
-  }
-
-  prevStep() {
-    this.stepNumber++;
-    this.questionNumber = 0;
+  check() {
+    this.checked = true;
   }
 
   nextQuestion() {
+    this.checked = false;
     this.questionNumber++;
   }
 
   prevQuestion() {
+    this.checked = false;
     this.questionNumber--;
+  }
+
+  nextStep() {
+    this.checked = false;
+    this.stepNumber++;
+    this.questionNumber = 0;
+    this.content.scrollToTop(2000);
+  }
+
+  prevStep() {
+    this.checked = false;
+    this.stepNumber++;
+    this.questionNumber = 0;
+    this.content.scrollToTop(2000);
+  }
+
+  courseDone() {
+    this.checked = false;
+    this.navCtrl.setRoot(component);
   }
 
 }
