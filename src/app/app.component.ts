@@ -28,7 +28,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Micro Bible', component: HomePage },
+      { title: 'App Name', component: HomePage },
       { title: 'Courses', component: ListPage }
     ];
 

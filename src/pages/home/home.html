@@ -8,17 +8,19 @@
 </ion-header>
 
 <ion-content (ionScroll)="onScroll($event)">
-  <div style="position:relative;height:0;padding-bottom:56.34%"><iframe [src]="transformUrl(url)" style="position:absolute;width:100%;height:100%;left:0" width="100%" height="auto" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen frameborder="0"></iframe></div>
-  <div padding>
+  <div class="home-image">
+    <div class="image" [ngStyle]="{'background-image': 'url(' + urlImage + ')'}"></div>
+    <div class="opacity"></div>
+    <div class="home-info">
+      <h3 class="home-title" text-center>Welcome to {{pageInfo.title}}</h3>
+    </div>
+  </div>
+  <!-- <div style="position:relative;height:0;padding-bottom:56.34%"><iframe [src]="transformUrl(url)" style="position:absolute;width:100%;height:100%;left:0" width="100%" height="auto" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen frameborder="0"></iframe></div> -->
+ <!--  <div padding>
   	<button ion-button full (click)="takePicture()">
 		Take picture
 	</button>
-  </div>
-	
-	<img [src]="urlImage" width="100%" height="auto">
-  <img [src]="urlImage" width="100%" height="auto">
-  <img [src]="urlImage" width="100%" height="auto">
-  <img [src]="urlImage" width="100%" height="auto">
+  </div> -->
 </ion-content>
 
 

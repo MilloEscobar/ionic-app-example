@@ -21,6 +21,8 @@ export class DetailPage {
   questionAnswer;
   questionNumber:number = 0;
 
+  courseDoneAttr = { title: 'Courses', component: ListPage };
+
 
   constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams,private sanitizer: DomSanitizer) {
     // If we navigated to this page, we will have an item available as a nav param
@@ -32,7 +34,9 @@ export class DetailPage {
   // }
 
   ionViewDidLoad() {
-    this.loader.loading = false;
+    setTimeout(()=>{
+      this.loader.loading = false;
+    },1000);
   }
 
   transformUrl(url){
@@ -82,7 +86,11 @@ export class DetailPage {
 
   courseDone() {
     this.checked = false;
-    this.navCtrl.setRoot(component);
+    this.loader.loading = true;
+    setTimeout(()=>{
+      this.navCtrl.setRoot(this.courseDoneAttr.component , { page : this.courseDoneAttr });
+    },1000);
+    
   }
 
 }

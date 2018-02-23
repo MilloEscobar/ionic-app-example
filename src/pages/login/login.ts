@@ -29,16 +29,18 @@ export class LoginPage {
 	// }
 
   ionViewDidLoad() {
-    this.loader.loading = false;
+    setTimeout(()=>{
+      this.loader.loading = false;
+    },1000);
   }
 
   login() {
     this.loader.loading = true;
     this.AuthenticatorProvider.logged = true;
-    setTimeout(()=>{    //<<<---    using ()=> syntax
+    setTimeout(()=>{
       this.navCtrl.setRoot(HomePage, {
         logged: true
       });
-    },2000);
+    },1000);
   }
 }

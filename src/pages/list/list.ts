@@ -71,7 +71,9 @@ export class ListPage {
   // }
 
   ionViewDidLoad() {
-    this.loader.loading = false;
+    setTimeout(()=>{
+      this.loader.loading = false;
+    },1000);
   }
 
   itemTapped(event, item) {

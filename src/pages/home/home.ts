@@ -12,7 +12,6 @@ import { LoaderComponent } from '../../components/loader/loader';
 export class HomePage {
   pageInfo: any;
   urlImage;
-	urlFixed;
 	url = "https://www.youtube.com/embed/fKopy74weus?"+"&theme=dark&color=white&autohide=1&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3";
 
 	constructor(public navParams: NavParams, public loader:LoaderComponent , public navCtrl: NavController, private sanitizer: DomSanitizer, private camera: Camera) {
@@ -22,7 +21,7 @@ export class HomePage {
       this.pageInfo = navParams.get('page');
       console.log(this.pageInfo);
     } else {
-      this.pageInfo = { title: 'Micro Bible', component: HomePage };
+      this.pageInfo = { title: 'App Name', component: HomePage };
     }
 	}
 
@@ -56,7 +55,7 @@ export class HomePage {
   }
 
 	ngOnInit() {
-    this.urlImage = this.transformUrl("https://camo.githubusercontent.com/e9c5fe6cb160f55f564723b8c1679170c74f5e53/687474703a2f2f73392e706f7374696d672e6f72672f7a336e707077797a332f73686565705f333530782e6a7067");
+    this.urlImage = "https://thenypost.files.wordpress.com/2017/05/shutterstock_115473676.jpg?quality=90&strip=all&strip=all";
   	}
 
   	transformUrl(url){
@@ -64,7 +63,9 @@ export class HomePage {
   	}
 
   ionViewDidLoad() {
-    this.loader.loading = false;
+    setTimeout(()=>{
+      this.loader.loading = false;
+    },1000);
   }
 
 }
