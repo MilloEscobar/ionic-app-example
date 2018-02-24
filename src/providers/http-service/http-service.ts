@@ -21,11 +21,11 @@ export class HttpServiceProvider {
   }
 
   getCourses () {
-    return this.http.get("http://10.28.6.16:3000/api/course");
+    return this.http.get("http://192.168.0.133:3000/api/course");
   }
 
   getLastCourses () {
-    return this.http.get("http://10.28.6.16:3000/api/course/last/8");
+    return this.http.get("http://192.168.0.133:3000/api/course/last/8");
   }
 
   getCourse (): {title: string, note: string, icon: string}  {

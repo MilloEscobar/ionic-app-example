@@ -24,8 +24,8 @@
   <div class="step-content">
     <h3 no-margin>Lesson {{ stepNumber+1 }}</h3>
     <div padding margin class="no-padding-bottom no-margin-top">
-      <button *ngIf="!reading" ion-button full (click)="readText();">Read</button>
-      <button *ngIf="reading" ion-button full (click)="stopReading();">Stop</button>
+      <button  *ngIf="!reading" ion-button full color="secondary" (click)="readText();">Read</button>
+      <button  *ngIf="reading" ion-button full color="danger" (click)="stopReading();">Stop</button>
     </div>
     
     <div class="step-text" [innerHTML]="selectedItem.steps[stepNumber].info">

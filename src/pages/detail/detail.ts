@@ -97,16 +97,23 @@ export class DetailPage {
   }
 
   readText() {
-    this.reading = true;
-    this.tts.speak(this.selectedItem.steps[this.stepNumber].info)
-    .then(() => console.log('Success'))
+    
+    this.tts.speak( {
+      text: this.selectedItem.steps[this.stepNumber].info,
+      locale: 'es-ES',
+      rate: 0.85
+    })
+    .then(() => {
+      this.reading = false;
+    })
     .catch((reason: any) => console.log(reason));
+    this.reading = true;
   }
 
   stopReading() { 
+    
+    this.tts.speak({text: ''});  // <<< speak an empty string to interrupt.
     this.reading = false;
-    this.tts.stop()
-    .then(() => console.log('Success'))
-    .catch((reason: any) => console.log(reason));
+    
   }
 }
