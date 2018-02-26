@@ -78,16 +78,28 @@ export class HomePage {
   onScroll(event) {
     let element = document.getElementById('ion-navbar').childNodes[0];
     let title = document.getElementById('title-transparent').childNodes[0];
+    let opacityImage = document.getElementById('opacity-change');
+    let opacity = event.scrollTop / 154;
 
     if (element["style"]) {
       if (event.scrollTop <= 154 ) {
-        let opacity = event.scrollTop / 154;
-        element["style"].backgroundColor = "rgba(0,0,0,"+ opacity+")";
-        title["style"].color = "rgba(255,255,255,"+ opacity+")";
-      } if (event.scrollTop > 154 ) {
+        opacityImage["style"].opacity = "" + opacity;
+      } 
+
+      if (event.scrollTop > 154 ) {  
+        opacityImage["style"].opacity = "1";
+        
+      } 
+
+      if (event.scrollTop < 115 ) {
+        element["style"].backgroundColor = "rgba(0,0,0,0)";
+        title["style"].color = "rgba(255,255,255,0)";
+      }
+      
+      if (event.scrollTop >= 115 ) {
         element["style"].backgroundColor = "rgba(0,0,0,1)";
         title["style"].color = "rgba(255,255,255,1)";
-      } 
+      }
     }
   }
 

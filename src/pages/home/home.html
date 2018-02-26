@@ -14,6 +14,7 @@
     <div class="home-info">
       <h3 class="home-title" text-center>Welcome to {{pageInfo.title}}</h3>
     </div>
+    <div id="opacity-change" class="opacity-change"></div>
   </div>
     <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" dark class="course-item">
@@ -28,7 +29,12 @@
       </span>
     </button>
   </ion-list>
-
+<!--           <img [src]="urlImage">
+          <img [src]="urlImage">
+          <img [src]="urlImage">
+          <img [src]="urlImage">
+          <img [src]="urlImage">
+          <img [src]="urlImage"> -->
   <!-- <div style="position:relative;height:0;padding-bottom:56.34%"><iframe [src]="transformUrl(url)" style="position:absolute;width:100%;height:100%;left:0" width="100%" height="auto" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen frameborder="0"></iframe></div> -->
  <!--  <div padding>
   	<button ion-button full (click)="takePicture()">

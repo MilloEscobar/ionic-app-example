@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { LoaderComponent } from '../components/loader/loader';
 
@@ -18,7 +19,7 @@ import { AuthenticatorProvider } from '../providers/authenticator/authenticator'
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = RegisterPage;
 
   pages: Array<{title: string, component: any}>;
   myPages: Array<{title: string, component: any}>;
@@ -65,6 +66,14 @@ export class MyApp {
     this.loader.loading = true;
     
     this.nav.push(LoginPage, {
+      logged: false
+    });
+    // this.nav.setRoot(LoginPage);
+  }
+  register() {
+    this.loader.loading = true;
+    
+    this.nav.push(RegisterPage, {
       logged: false
     });
     // this.nav.setRoot(LoginPage);

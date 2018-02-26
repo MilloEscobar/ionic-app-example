@@ -1,6 +1,6 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="dark">
       <ion-title>Menu <span menuClose class="menuClose">X</span></ion-title>
 
     </ion-toolbar>
@@ -16,6 +16,9 @@
           {{p.title}}
         </button>
       </div>
+      <button *ngIf="!AuthenticatorProvider.logged" menuClose ion-item (click)="register()">
+        Register
+      </button>
       <button *ngIf="!AuthenticatorProvider.logged" menuClose ion-item (click)="login()">
         Login
       </button>

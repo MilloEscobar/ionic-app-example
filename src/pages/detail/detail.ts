@@ -47,15 +47,26 @@ export class DetailPage {
   }
 
   onScroll(event) {
-    
+    let opacity = event.scrollTop / 154;
     let element = document.getElementById('ion-navbar-detail').childNodes[0];
+    let opacityImage = document.getElementById('opacity-change-details');
     if (element["style"]) {
-      if (event.scrollTop <= 154 ) {
-        let backgroundColor = event.scrollTop / 154;
-        element["style"].backgroundColor = "rgba(0,0,0,"+ backgroundColor+")";
-      } if (event.scrollTop > 154 ) {
-        element["style"].backgroundColor = "rgba(0,0,0,1)";
+
+      if (event.scrollTop <= 154 ) {  
+        opacityImage["style"].opacity = ""+opacity;
       } 
+
+      if (event.scrollTop > 154 ) {
+        opacityImage["style"].opacity = ""+1;   
+      } 
+      
+      if (event.scrollTop < 115 ) {
+        element["style"].backgroundColor = "rgba(0,0,0,0)";
+      }
+      
+      if (event.scrollTop >= 115 ) {
+        element["style"].backgroundColor = "rgba(0,0,0,1)";
+      }
     }
   }
 

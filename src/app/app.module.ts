@@ -8,6 +8,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 import { ComponentsModule } from '../components/components.module';
 import { LoginPageModule } from '../pages/login/login.module';
+import { RegisterPageModule } from '../pages/register/register.module';
 
 import { LoaderComponent } from '../components/loader/loader';
 
@@ -33,6 +34,7 @@ import { HttpServiceProvider } from '../providers/http-service/http-service';
     BrowserModule,
     ComponentsModule,
     HttpClientModule,
+    RegisterPageModule,
     LoginPageModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
