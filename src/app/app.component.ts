@@ -19,7 +19,7 @@ import { AuthenticatorProvider } from '../providers/authenticator/authenticator'
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = RegisterPage;
+  rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
   myPages: Array<{title: string, component: any}>;

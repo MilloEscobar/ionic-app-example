@@ -53,11 +53,11 @@ export class DetailPage {
     if (element["style"]) {
 
       if (event.scrollTop <= 154 ) {  
-        opacityImage["style"].opacity = ""+opacity;
+        opacityImage["style"].backgroundColor = "rgba(0,0,0,"+opacity+")";
       } 
 
       if (event.scrollTop > 154 ) {
-        opacityImage["style"].opacity = ""+1;   
+        opacityImage["style"].backgroundColor = "rgba(0,0,0,1)";   
       } 
       
       if (event.scrollTop < 115 ) {
