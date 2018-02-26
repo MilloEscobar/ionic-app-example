@@ -82,7 +82,7 @@ export class ListPage {
 
     this.navCtrl.push(DetailPage, {
       item: item
-    });
+    },{animate: false});
   }
 
 }

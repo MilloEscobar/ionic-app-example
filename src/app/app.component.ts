@@ -58,7 +58,7 @@ export class MyApp {
     
     this.nav.setRoot(page.component, {
       page:page
-    });
+    },{animate: false});
     
   }
 
@@ -67,7 +67,7 @@ export class MyApp {
     
     this.nav.push(LoginPage, {
       logged: false
-    });
+    },{animate: false});
     // this.nav.setRoot(LoginPage);
   }
   register() {
@@ -75,7 +75,7 @@ export class MyApp {
     
     this.nav.push(RegisterPage, {
       logged: false
-    });
+    },{animate: false});
     // this.nav.setRoot(LoginPage);
   }
   

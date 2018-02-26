@@ -123,7 +123,7 @@ export class HomePage {
 
     this.navCtrl.push(DetailPage, {
       item: item
-    });
+    },{animate: false});
   }
 
 }
