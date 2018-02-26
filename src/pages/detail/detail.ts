@@ -14,7 +14,7 @@ import { LoaderComponent } from '../../components/loader/loader';
 
 export class DetailPage {
   @ViewChild(Content) content: Content;
-
+  error;
   selectedItem: any;
   checked:boolean = false;
   icons: string[];
@@ -97,22 +97,30 @@ export class DetailPage {
   }
 
   readText() {
-    
     this.tts.speak( {
-      text: this.selectedItem.steps[this.stepNumber].info,
+      text: this.selectedItem.steps[this.stepNumber].read,
       locale: 'es-ES',
       rate: 0.85
     })
     .then(() => {
       this.reading = false;
     })
-    .catch((reason: any) => console.log(reason));
+    .catch((reason: any) => {
+      this.error = reason;
+      console.log(reason)
+    });
     this.reading = true;
   }
 
   stopReading() { 
     
-    this.tts.speak({text: ''});  // <<< speak an empty string to interrupt.
+    this.tts.speak({text: ''})
+    .then(() => {
+    })
+    .catch((reason: any) => {
+      this.error = reason;
+      console.log(reason)
+    });
     this.reading = false;
     
   }
