@@ -1,3 +1,11 @@
 page-register {
 
 }
+
+.item-md.item-block.ng-invalid .item-inner {
+	border-bottom: color($colors, danger , base) solid;
+}
+
+.item-md.item-block.ng-is-valid .item-inner {
+	border-bottom: color($colors, success , base) solid;
+}

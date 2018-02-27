@@ -62,17 +62,21 @@ ion-header.header {
 	}
 }
 
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, 
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner { 
+	border-bottom: 1px solid #dedede;
+    box-shadow: none !important;
+}
+
+
 
 .transparent {
 	color: transparent;
 	background-color: transparent;
 }
-.no-padding-top {
-	padding-top: 0 !important;
-}
 
-.no-padding-bottom {
-	padding-bottom: 0 !important;
+.no-margin {
+	margin: 0 !important;
 }
 
 .no-margin-bottom {
@@ -81,6 +85,18 @@ ion-header.header {
 
 .no-margin-top {
 	margin-top: 0 !important;
+}
+
+.no-padding {
+	padding: 0 !important;
+}
+
+.no-padding-top {
+	padding-top: 0 !important;
+}
+
+.no-padding-bottom {
+	padding-bottom: 0 !important;
 }
 
 

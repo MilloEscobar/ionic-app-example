@@ -15,21 +15,52 @@
 
 
 <ion-content padding>
-	<form #form="ngForm" (ngSubmit)="register(form)">
-    <ion-item>
+  <div padding class="error message">
+    <p>{{errorMessage}}</p>
+  </div>
+	<form (ngSubmit)="register(username)" novalidate>
+
+    <ion-item [class.ng-invalid]="(username.touched && username.viewModel=='') || registerForm.username.valid" 
+              [class.ng-is-valid]="registerForm.username.valid"
+              [class.ng-valid]="false">
       <ion-label floating>Email</ion-label>
-      <ion-input [(ngModel)]="username" required type="email" name="username"></ion-input>
+      <ion-input requierd  type="email" name="username" 
+              [(ngModel)]="registerForm.username.value" 
+              #username="ngModel"
+              [class.ng-invalid]="(username.touched && username.viewModel=='') || registerForm.username.valid"
+              [class.ng-valid]="false">   
+      </ion-input>
     </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="username.touched && !registerForm.username.valid">Required {{username.touched}} {{username.viewModel==''}}</span>
+    </p>
 
-    <ion-item>
+    <ion-item [class.ng-invalid]="(password.touched && password.viewModel=='') || registerForm.password.valid" 
+              [class.ng-is-valid]="registerForm.password.valid"
+              >
       <ion-label floating>Password</ion-label>
-      <ion-input [(ngModel)]="password" required type="password" name="password"></ion-input>
+      <ion-input requierd  type="password" name="password" min="6" 
+            [(ngModel)]="registerForm.password.value" 
+            #password="ngModel"
+            [class.ng-valid]="false">   
+      </ion-input>
     </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="password.touched && !registerForm.password.valid">Required</span>
+    </p>
 
-    <ion-item>
+    <ion-item [class.ng-invalid]="(confirmPassword.touched && confirmPassword.viewModel=='') || registerForm.confirmPassword.valid" 
+              [class.ng-is-valid]="registerForm.confirmPassword.valid"
+              >
       <ion-label floating>Confirm Password</ion-label>
-      <ion-input [(ngModel)]="confirmPassword" required type="password" name="confirmPassword"></ion-input>
+      <ion-input [class.ng-valid]="false" requierd  type="password" name="confirmPassword" min="6"
+              [(ngModel)]="registerForm.confirmPassword.value" 
+              #confirmPassword="ngModel"
+              [class.ng-valid]="false">
+      </ion-input>
     </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="confirmPassword.touched && !registerForm.confirmPassword.valid">Required</span></p>
 
     <div padding>
       <button ion-button full type="submit" block>Register</button>

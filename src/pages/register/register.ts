@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+// import { FormControl, FormGroup } from '@angular/forms';
 
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
 
@@ -41,24 +42,42 @@ export class RegisterPage {
 
   constructor(private AuthenticatorProvider:AuthenticatorProvider, public loader: LoaderComponent, public navCtrl: NavController, public navParams: NavParams) {
   }
-  username;
-  password;
-  confirmPassword;
+
+  errorMessage:string = null;
+
+  registerForm = {
+                    username: { value:"", valid:false, errorMessage:null }, 
+                    password: { value:"", valid:false, errorMessage:null }, 
+                    confirmPassword: { value:"", valid:false, errorMessage:null }
+                  };
+  
 
 	// ngOnInit() {
 	// 	this.loader.loading = false;
 	// }
 
   ionViewDidLoad() {
-    setTimeout(()=>{
+    setTimeout(()=> {
       this.loader.loading = false;
     },1000);
   }
 
-  register(form) {
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
 
-    if (true) {
-      console.log(form);
+  register() {
+    if (this.registerForm.username.value) {
+      if (this.validateEmail(this.registerForm.username.value)) {
+        console.log("Valid email: ", this.validateEmail(this.registerForm.username.value));
+      }
+      if (this.registerForm.password === this.registerForm.confirmPassword) {
+        // code...
+      }
+      console.log("success: " , this.registerForm.username , this.registerForm.password, this.registerForm.confirmPassword);
+    } else {
+      console.log("error: " , this.registerForm.username , this.registerForm.password, this.registerForm.confirmPassword);
     }
     // this.loader.loading = true;
     // this.AuthenticatorProvider.logged = true;
