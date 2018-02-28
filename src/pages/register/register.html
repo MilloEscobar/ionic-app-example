@@ -18,52 +18,63 @@
   <div padding class="error message">
     <p>{{errorMessage}}</p>
   </div>
-	<form (ngSubmit)="register(username)" novalidate>
+	<form (ngSubmit)="register()" novalidate>
 
-    <ion-item [class.ng-invalid]="(username.touched && username.viewModel=='') || registerForm.username.valid" 
-              [class.ng-is-valid]="registerForm.username.valid"
-              [class.ng-valid]="false">
+    <ion-item [class.ng-is-invalid]="name.touched && !registerForm.name.valid" 
+              [class.ng-is-valid]="registerForm.name.valid">
+      <ion-label floating>Name</ion-label>
+      <ion-input requierd  type="email" name="name" 
+                (ionBlur)="nameValidate()"
+                [(ngModel)]="registerForm.name.value" 
+                #name="ngModel">   
+      </ion-input>
+    </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="name.touched && !registerForm.name.valid">{{ registerForm.name.errorMessage }}</span>
+    </p>
+
+    <ion-item [class.ng-is-invalid]="username.touched && !registerForm.username.valid" 
+              [class.ng-is-valid]="registerForm.username.valid">
       <ion-label floating>Email</ion-label>
       <ion-input requierd  type="email" name="username" 
-              [(ngModel)]="registerForm.username.value" 
-              #username="ngModel"
-              [class.ng-invalid]="(username.touched && username.viewModel=='') || registerForm.username.valid"
-              [class.ng-valid]="false">   
+                (ionBlur)="usernameValidate()"
+                [(ngModel)]="registerForm.username.value" 
+                #username="ngModel">   
       </ion-input>
     </ion-item>
     <p ion-text padding-left padding-right class="no-margin" color="danger">
-      <span *ngIf="username.touched && !registerForm.username.valid">Required {{username.touched}} {{username.viewModel==''}}</span>
+      <span *ngIf="username.touched && !registerForm.username.valid">{{ registerForm.username.errorMessage }}</span>
     </p>
 
-    <ion-item [class.ng-invalid]="(password.touched && password.viewModel=='') || registerForm.password.valid" 
-              [class.ng-is-valid]="registerForm.password.valid"
-              >
+    <ion-item [class.ng-is-invalid]="password.touched && !registerForm.password.valid" 
+              [class.ng-is-valid]="registerForm.password.valid">
       <ion-label floating>Password</ion-label>
       <ion-input requierd  type="password" name="password" min="6" 
-            [(ngModel)]="registerForm.password.value" 
-            #password="ngModel"
-            [class.ng-valid]="false">   
+                (ionBlur)="passwordValidate()"
+                [(ngModel)]="registerForm.password.value" 
+                #password="ngModel">   
       </ion-input>
     </ion-item>
     <p ion-text padding-left padding-right class="no-margin" color="danger">
-      <span *ngIf="password.touched && !registerForm.password.valid">Required</span>
+      <span *ngIf="password.touched && !registerForm.password.valid">{{registerForm.password.errorMessage}}</span>
     </p>
 
-    <ion-item [class.ng-invalid]="(confirmPassword.touched && confirmPassword.viewModel=='') || registerForm.confirmPassword.valid" 
-              [class.ng-is-valid]="registerForm.confirmPassword.valid"
-              >
+    <ion-item [class.ng-is-invalid]="confirmPassword.touched && !registerForm.confirmPassword.valid" 
+              [class.ng-is-valid]="registerForm.confirmPassword.valid">
       <ion-label floating>Confirm Password</ion-label>
       <ion-input [class.ng-valid]="false" requierd  type="password" name="confirmPassword" min="6"
-              [(ngModel)]="registerForm.confirmPassword.value" 
-              #confirmPassword="ngModel"
-              [class.ng-valid]="false">
+                (ionBlur)="confirmPasswordValidate()"
+                [(ngModel)]="registerForm.confirmPassword.value" 
+                #confirmPassword="ngModel">
       </ion-input>
     </ion-item>
     <p ion-text padding-left padding-right class="no-margin" color="danger">
-      <span *ngIf="confirmPassword.touched && !registerForm.confirmPassword.valid">Required</span></p>
+      <span *ngIf="confirmPassword.touched && !registerForm.confirmPassword.valid">{{registerForm.confirmPassword.errorMessage}}</span></p>
 
     <div padding>
-      <button ion-button full type="submit" block>Register</button>
+      <button ion-button full type="submit" block 
+              [disabled]=" !registerForm.username.valid || !registerForm.username.valid || !registerForm.password.valid || !registerForm.confirmPassword.valid ">Register
+      </button>
     </div>
 	</form >
 </ion-content>

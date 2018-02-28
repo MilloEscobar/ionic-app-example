@@ -15,24 +15,6 @@ import { HomePage } from '../home/home';
  */
 
 
- // <{
- //      name: String,
- //      lastName: String,
- //      username: String,
- //      salt: String,
- //      password: String,
- //      roles: [String],
- //      courses: [{
- //        id: String,
- //        step: Number,
- //        answers:[{
- //          step: Number,
- //          answers: Number
- //        }]
- //      }],
-
- //  }>
-
 @IonicPage()
 @Component({
   selector: 'page-register',
@@ -42,15 +24,13 @@ export class RegisterPage {
 
   constructor(private AuthenticatorProvider:AuthenticatorProvider, public loader: LoaderComponent, public navCtrl: NavController, public navParams: NavParams) {
   }
-
-  errorMessage:string = null;
-
   registerForm = {
-                    username: { value:"", valid:false, errorMessage:null }, 
-                    password: { value:"", valid:false, errorMessage:null }, 
-                    confirmPassword: { value:"", valid:false, errorMessage:null }
-                  };
-  
+                  name: { value:"", valid:false, errorMessage:null },
+                  username: { value:"", valid:false, errorMessage:null }, 
+                  password: { value:"", valid:false, errorMessage:null }, 
+                  confirmPassword: { value:"", valid:false, errorMessage:null }
+                };
+
 
 	// ngOnInit() {
 	// 	this.loader.loading = false;
@@ -62,30 +42,123 @@ export class RegisterPage {
     },1000);
   }
 
+  scorePassword(pass) {
+    var score = 0;
+    if (!pass)
+        return false;
+
+    // award every unique letter until 5 repetitions
+    var letters = new Object();
+    for (var i=0; i<pass.length; i++) {
+        letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+        score += 5.0 / letters[pass[i]];
+    }
+
+    // bonus points for mixing it up
+    var variations = {
+        digits: /\d/.test(pass),
+        lower: /[a-z]/.test(pass),
+        upper: /[A-Z]/.test(pass),
+        nonWords: /\W/.test(pass),
+    }
+
+    let variationCount = 0;
+    for (var check in variations) {
+        variationCount += (variations[check] == true) ? 1 : 0;
+    }
+    score += (variationCount - 1) * 10;
+    if (score > 30) {
+      return true;
+    } else {
+      return false;
+    } 
+  }
+
   validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
 
-  register() {
-    if (this.registerForm.username.value) {
-      if (this.validateEmail(this.registerForm.username.value)) {
-        console.log("Valid email: ", this.validateEmail(this.registerForm.username.value));
-      }
-      if (this.registerForm.password === this.registerForm.confirmPassword) {
-        // code...
-      }
-      console.log("success: " , this.registerForm.username , this.registerForm.password, this.registerForm.confirmPassword);
+  nameValidate() {
+    if (this.registerForm.name.value === "") {
+      this.registerForm.name.valid = false;
+      this.registerForm.name.errorMessage = "This field is Required";
     } else {
-      console.log("error: " , this.registerForm.username , this.registerForm.password, this.registerForm.confirmPassword);
+      this.registerForm.name.valid = true;
+      this.registerForm.name.errorMessage = "";    
+    } 
+  }
+
+  usernameValidate() {
+    if (this.registerForm.username.value === "") {
+      this.registerForm.username.valid = false;
+      this.registerForm.username.errorMessage = "This field is Required";
+    } else {
+      this.registerForm.username.valid = this.validateEmail(this.registerForm.username.value);
+      if (this.registerForm.username.valid) {
+        this.registerForm.username.errorMessage = "";
+      } else {
+        this.registerForm.username.errorMessage = "Invalid Email";
+      }    
+    } 
+  }
+
+  passwordValidate() {
+    if (this.registerForm.password.value === "") {
+      this.registerForm.password.valid = false;
+      this.registerForm.password.errorMessage = "This field is Required";
+    } else {
+      this.registerForm.password.valid = this.scorePassword(this.registerForm.password.value);
+      if (this.registerForm.password.valid) {
+        this.registerForm.password.errorMessage = "";
+      } else {
+        this.registerForm.password.errorMessage = "Weak Password";
+      }
+      
     }
-    // this.loader.loading = true;
-    // this.AuthenticatorProvider.logged = true;
-    // setTimeout(()=>{
-    //   this.navCtrl.setRoot(HomePage, {
-    //     logged: true
-    //   });
-    // },1000);
+    this.confirmPasswordValidate();
+  }
+
+  confirmPasswordValidate() {
+    if (this.registerForm.password.value === this.registerForm.confirmPassword.value && this.registerForm.password.value != "") {
+      this.registerForm.confirmPassword.valid = true;
+      this.registerForm.confirmPassword.errorMessage = "";
+    } else {
+      this.registerForm.confirmPassword.valid = false;
+      this.registerForm.confirmPassword.errorMessage = "Doesn't match the password";
+    }
+  }
+
+  register() {
+
+    if (this.registerForm.username.valid && this.registerForm.username.valid && this.registerForm.password.valid && this.registerForm.confirmPassword.valid) {
+
+      let user = {
+                  name: this.registerForm.name.value,
+                  username: this.registerForm.username.value,
+                  password: this.registerForm.password.value,
+                  confirmPassword: this.registerForm.confirmPassword.value,
+                  roles: ["user"],
+                  courses: [],
+                };
+      this.loader.loading = true;
+
+      console.log(user)
+      this.AuthenticatorProvider.register(user)
+        .subscribe(
+        data => {
+            if (data["data"]) {
+              this.AuthenticatorProvider.logged = true;
+              this.navCtrl.setRoot(HomePage, {animate: false});
+              this.loader.loading = false;
+            } 
+        },
+        error => {
+            console.log(error);
+            this.loader.loading = false;
+        });
+    }
+    
   }
 
 }

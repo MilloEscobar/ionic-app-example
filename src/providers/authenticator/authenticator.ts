@@ -15,4 +15,9 @@ export class AuthenticatorProvider {
     console.log('Hello AuthenticatorProvider Provider');
   }
 
+  register(user) {
+  	return this.http.post("http://macrobible.fr.openode.io/register", user);
+  	// return this.http.post("http://localhost:3000/register", user);
+  }
+
 }
