@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
+import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
+
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { LoaderComponent } from '../../components/loader/loader';
 import { DetailPage } from '../detail/detail';
@@ -35,8 +37,16 @@ export class HomePage {
                 level: String,
                 tags: [String]
             }>;
+  welcomeMessage;
 
-	constructor(public httpService: HttpServiceProvider, public navParams: NavParams, public loader:LoaderComponent , public navCtrl: NavController, private sanitizer: DomSanitizer, private camera: Camera) {
+	constructor(
+    private AuthenticatorProvider:AuthenticatorProvider, 
+    public httpService: HttpServiceProvider, 
+    public navParams: NavParams, 
+    public loader:LoaderComponent , 
+    public navCtrl: NavController, 
+    private sanitizer: DomSanitizer, 
+    private camera: Camera) {
 		
     
     if (navParams.get('page')) {
@@ -44,6 +54,11 @@ export class HomePage {
       console.log(this.pageInfo);
     } else {
       this.pageInfo = { title: 'App Name', component: HomePage };
+    }
+    if (AuthenticatorProvider.user) {
+      this.welcomeMessage = "Welcome " + AuthenticatorProvider.user["name"] + "!";
+    } else {
+      this.welcomeMessage = "Welcome to " + this.pageInfo.title + "!";
     }
 
     httpService.getLastCourses()
@@ -104,6 +119,9 @@ export class HomePage {
   }
 
 	ngOnInit() {
+    setTimeout(()=>{
+      this.loader.loading = false;
+    },1000);
     this.urlImage = "https://thenypost.files.wordpress.com/2017/05/shutterstock_115473676.jpg?quality=90&strip=all&strip=all";
   	}
 

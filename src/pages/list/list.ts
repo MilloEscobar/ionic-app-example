@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
+
 import { DetailPage } from '../detail/detail';
 import { LoaderComponent } from '../../components/loader/loader';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
@@ -34,7 +36,12 @@ export class ListPage {
                 tags: [String]
             }>;
 
-  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams, public httpService: HttpServiceProvider) {
+  constructor(
+    public loader:LoaderComponent , 
+    private AuthenticatorProvider:AuthenticatorProvider,
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public httpService: HttpServiceProvider) {
     // If we navigated to this page, we will have an item available as a nav param
     this.pageInfo = navParams.get('page');
 
@@ -53,16 +60,7 @@ export class ListPage {
     
     } else {
       httpService.getCourses()
-      .subscribe(
-        data => {
-            console.log(data["data"]);  
-            this.items =  data["data"];  
-        },
-        error => {
-            
-            if (error.error == "Username or password is incorrect") {
-            }
-        });
+      this.items = AuthenticatorProvider.user['courses'];
     }
   }
 

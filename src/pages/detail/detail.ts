@@ -3,6 +3,7 @@ import { NavController, NavParams ,Content } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
 
 import { ListPage } from '../../pages/list/list';
 import { LoaderComponent } from '../../components/loader/loader';
@@ -15,22 +16,44 @@ import { LoaderComponent } from '../../components/loader/loader';
 export class DetailPage {
   @ViewChild(Content) content: Content;
   error;
+  courseAdded = false;
   selectedItem: any;
   checked:boolean = false;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
   stepNumber:number = 0;
   questionAnswer;
   questionNumber:number = 0;
-  reading:boolean=false;
+  reading:boolean = false;
 
   courseDoneAttr = { title: 'Courses', component: ListPage };
 
-
-  constructor(public loader:LoaderComponent , public navCtrl: NavController, public navParams: NavParams,private sanitizer: DomSanitizer, private tts: TextToSpeech) {
+  constructor(
+    private AuthenticatorProvider:AuthenticatorProvider,
+    public loader:LoaderComponent , 
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private sanitizer: DomSanitizer, 
+    private tts: TextToSpeech) {
     // If we navigated to this page, we will have an item available as a nav param
-    
+
+     
     this.selectedItem = navParams.get('item');
+
+    if (AuthenticatorProvider.user) {
+        var i = 0;
+       var found = AuthenticatorProvider.user["courses"].find(function(element) {
+        if (element.id === navParams.get('item').id) {
+          return element;
+        }
+        i++;
+      });
+
+      if (found) {
+        console.log(AuthenticatorProvider.user["courses"][i]);
+        this.courseAdded = true;
+        this.selectedItem = found;
+      }
+    }
+    
   }
   // ngOnInit() {
   //   this.loader.loading = false;
@@ -72,22 +95,38 @@ export class DetailPage {
 
   check() {
     this.checked = true;
+    if (this.AuthenticatorProvider.user) {
+      this.selectedItem.stepCurrent++;
+      this.selectedItem.questionNumber++;
+    }
   }
 
   nextQuestion() {
     this.checked = false;
     this.questionNumber++;
+    if (this.AuthenticatorProvider.user) {
+      this.selectedItem.stepCurrent++;
+      this.selectedItem.questionNumber++;
+    }
   }
 
   prevQuestion() {
     this.checked = false;
     this.questionNumber--;
+    if (this.AuthenticatorProvider.user) {
+      this.selectedItem.stepCurrent++;
+      this.selectedItem.questionNumber++;
+    }
   }
 
   nextStep() {
     this.checked = false;
     this.stepNumber++;
     this.questionNumber = 0;
+    if (this.AuthenticatorProvider.user) {
+      this.selectedItem.stepCurrent++;
+      this.selectedItem.questionNumber++;
+    }
     this.content.scrollToTop(2000);
   }
 
@@ -95,6 +134,10 @@ export class DetailPage {
     this.checked = false;
     this.stepNumber++;
     this.questionNumber = 0;
+    if (this.AuthenticatorProvider.user) {
+      this.selectedItem.stepCurrent++;
+      this.selectedItem.questionNumber++;
+    }
     this.content.scrollToTop(2000);
   }
 
@@ -133,6 +176,19 @@ export class DetailPage {
       console.log(reason)
     });
     this.reading = false;
+    
+  }
+
+  addToMyCourses() {
+    if (this.AuthenticatorProvider.user) {
+      let courseToAdd = this.selectedItem;
+      courseToAdd.stepCurrent = 1;
+      courseToAdd.questionNumber = 1;
+      this.AuthenticatorProvider.user["courses"].push(this.selectedItem);
+      this.courseAdded = true;
+      this.selectedItem = courseToAdd;
+      console.log(this.AuthenticatorProvider.user);
+    }
     
   }
 }

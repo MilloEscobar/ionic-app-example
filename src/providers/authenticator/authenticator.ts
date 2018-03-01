@@ -10,14 +10,24 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthenticatorProvider {
 	logged = false;
+  user:any;
 
   constructor(public http: HttpClient) {
     console.log('Hello AuthenticatorProvider Provider');
   }
 
   register(user) {
-  	return this.http.post("http://macrobible.fr.openode.io/register", user);
-  	// return this.http.post("http://localhost:3000/register", user);
+  	// return this.http.post("http://macrobible.fr.openode.io/register", user);
+  	return this.http.post("http://localhost:3000/register", user);
+  }
+
+  login(user) {
+    // return this.http.post("http://macrobible.fr.openode.io/login", user);
+    return this.http.post("http://localhost:3000/login", user);
+  }
+
+  loggout() {
+    return this.http.get("http://localhost:3000/logout");
   }
 
 }

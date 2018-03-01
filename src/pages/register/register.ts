@@ -22,8 +22,15 @@ import { HomePage } from '../home/home';
 })
 export class RegisterPage {
 
-  constructor(private AuthenticatorProvider:AuthenticatorProvider, public loader: LoaderComponent, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private AuthenticatorProvider:AuthenticatorProvider, 
+    public loader: LoaderComponent, 
+    public navCtrl: NavController, 
+    public navParams: NavParams) {
+
+    this.errorMessage = null;
   }
+  errorMessage;
   registerForm = {
                   name: { value:"", valid:false, errorMessage:null },
                   username: { value:"", valid:false, errorMessage:null }, 
@@ -131,7 +138,7 @@ export class RegisterPage {
 
   register() {
 
-    if (this.registerForm.username.valid && this.registerForm.username.valid && this.registerForm.password.valid && this.registerForm.confirmPassword.valid) {
+    if (this.registerForm.name.valid && this.registerForm.username.valid && this.registerForm.password.valid && this.registerForm.confirmPassword.valid) {
 
       let user = {
                   name: this.registerForm.name.value,
@@ -143,22 +150,34 @@ export class RegisterPage {
                 };
       this.loader.loading = true;
 
-      console.log(user)
       this.AuthenticatorProvider.register(user)
         .subscribe(
         data => {
             if (data["data"]) {
               this.AuthenticatorProvider.logged = true;
+              this.AuthenticatorProvider.user = data["data"];
+              this.registerForm = {
+                  name: { value:"", valid:false, errorMessage:null },
+                  username: { value:"", valid:false, errorMessage:null }, 
+                  password: { value:"", valid:false, errorMessage:null }, 
+                  confirmPassword: { value:"", valid:false, errorMessage:null }
+                };
               this.navCtrl.setRoot(HomePage, {animate: false});
+            } else {
               this.loader.loading = false;
-            } 
+              this.errorMessage = "Something went wrong, please try again later";
+            }
         },
         error => {
-            console.log(error);
             this.loader.loading = false;
         });
     }
     
+  }
+
+  cancel() {
+    this.loader.loading = true;
+    this.navCtrl.setRoot(HomePage, {animate: false});
   }
 
 }

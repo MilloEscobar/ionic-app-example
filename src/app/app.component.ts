@@ -19,14 +19,19 @@ import { AuthenticatorProvider } from '../providers/authenticator/authenticator'
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = RegisterPage;
+  rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
   myPages: Array<{title: string, component: any}>;
 
-  constructor(private AuthenticatorProvider: AuthenticatorProvider, public loader:LoaderComponent ,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+  constructor(
+    private AuthenticatorProvider: AuthenticatorProvider, 
+    public loader:LoaderComponent ,
+    public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen) {
 
+    this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -68,7 +73,6 @@ export class MyApp {
     this.nav.push(LoginPage, {
       logged: false
     },{animate: false});
-    // this.nav.setRoot(LoginPage);
   }
   register() {
     this.loader.loading = true;
@@ -76,10 +80,20 @@ export class MyApp {
     this.nav.push(RegisterPage, {
       logged: false
     },{animate: false});
-    // this.nav.setRoot(LoginPage);
   }
   
   logout() {
-    this.AuthenticatorProvider.logged = false;
+    this.loader.loading = true;
+    this.AuthenticatorProvider.loggout()
+    .subscribe(
+      data => {
+        this.AuthenticatorProvider.user = null; 
+        this.AuthenticatorProvider.logged = false;
+        this.nav.setRoot(HomePage, {
+        },{animate: false});
+      },
+      error => { 
+          
+      });
   }
 }
