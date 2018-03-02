@@ -76,8 +76,6 @@ export class LoginPage {
 
     if (this.loginForm.username.valid && this.loginForm.password.valid) {
       this.loader.loading = true;
-      this.AuthenticatorProvider.logged = true;
-
       this.AuthenticatorProvider.login({
         username: this.loginForm.username.value,
         password: this.loginForm.password.value,
@@ -95,6 +93,8 @@ export class LoginPage {
       },
       error => {
           this.loader.loading = false;
+          this.errorMessage = "Something went wrong, please try again later";
+          console.log(error);
       });
 
     }

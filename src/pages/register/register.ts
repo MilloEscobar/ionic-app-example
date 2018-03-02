@@ -170,6 +170,7 @@ export class RegisterPage {
         },
         error => {
             this.loader.loading = false;
+            this.errorMessage = "Something went wrong, please try again later";
         });
     }
     

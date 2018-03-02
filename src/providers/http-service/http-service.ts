@@ -19,7 +19,7 @@ export class HttpServiceProvider {
   constructor(public http: HttpClient) {
     console.log('Hello HttpServiceProvider Provider');
   }
-
+  //Courses
   getCourses () {
     return this.http.get("http://macrobible.fr.openode.io/api/course");
   }
@@ -28,27 +28,21 @@ export class HttpServiceProvider {
     return this.http.get("http://macrobible.fr.openode.io/api/course/last/8");
   }
 
-  getCourse (): {title: string, note: string, icon: string}  {
+  getCourse ()  {
   	return {title: "string", note: "string", icon: "string"};
   }
 
-  getMyCourses (): Array<{title: string, note: string, icon: string}> {
+  getMyCourses () {
 
-    this.myItems = [];
-    for (let i = 0; i < 3; i++) {
-      this.myItems.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[i]
-      });
-    }
-
-  	return this.myItems ;
   }
 
   getMyCourse (): {title: string, note: string, icon: string} {
   	return {title: "string", note: "string", icon: "string"};
   }
 
+  //user
 
+  updateUser() {
+    return this.http.get("http://192.168.0.115:3000/logout");
+  }
 }

@@ -17,12 +17,11 @@
     <div id="opacity-change" class="opacity-change"></div>
   </div>
     <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" dark class="course-item">
-      <ion-thumbnail item-start class="course-item-thumbnail">
-<!--         <img [src]="selectedItem.media[0].url"> -->
+    <button padding ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" dark class="course-item">
+<!--       <ion-thumbnail item-start class="course-item-thumbnail">
         <div class="image" [ngStyle]="{'background-image': 'url(' + item.media[0].url + ')'}"></div>
         <div class="opacity"></div>
-      </ion-thumbnail>
+      </ion-thumbnail> -->
       <h3 text-capitalize>{{item.name}}</h3>
       <span class="item-level {{item.level}}" item-end text-capitalize >
         {{item.level}}

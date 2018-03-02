@@ -66,12 +66,12 @@ ion-header.header {
 .item-md.item-block.item-input.ng-invalid .item-input-has-value .item-inner,
 .item-md.item-block.item-input.ng-valid .item-inner,
 .item-md.item-block.item-input.ng-invalid .item-inner { 
-	border-bottom: 2px solid #dedede;
+	border-bottom: 2px solid $border-bottom-input;
     box-shadow: none;
 }
 
 .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
-	border-bottom: 2px solid #dedede;
+	border-bottom: 2px solid $border-bottom-input;
     box-shadow: none;
 }
 

@@ -27,7 +27,7 @@ export class AuthenticatorProvider {
   }
 
   loggout() {
-    return this.http.get("http://localhost:3000/logout");
+    return this.http.get("http://192.168.0.115:3000/logout");
   }
 
 }
