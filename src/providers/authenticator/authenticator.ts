@@ -13,21 +13,21 @@ export class AuthenticatorProvider {
   user:any;
 
   constructor(public http: HttpClient) {
-    console.log('Hello AuthenticatorProvider Provider');
+    console.log('Hello AuthenticatorProvider Provider', {withCredentials: true});
   }
 
   register(user) {
   	// return this.http.post("http://macrobible.fr.openode.io/register", user);
-  	return this.http.post("http://localhost:3000/register", user);
+  	return this.http.post("http://localhost:3000/register", user, {withCredentials: true});
   }
 
   login(user) {
     // return this.http.post("http://macrobible.fr.openode.io/login", user);
-    return this.http.post("http://localhost:3000/login", user);
+    return this.http.post("http://localhost:3000/login", user, {withCredentials: true});
   }
 
   loggout() {
-    return this.http.get("http://192.168.0.115:3000/logout");
+    return this.http.get("http://localhost:3000/logout");
   }
 
 }

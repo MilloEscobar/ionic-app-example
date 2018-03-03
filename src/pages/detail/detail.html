@@ -57,6 +57,7 @@
             <button *ngIf="(questionNumber >= (selectedItem.steps[stepNumber].questions.length-1)) && stepNumber >= (selectedItem.steps.length-1)" ion-button full color="secondary" (click)="courseDone(); myForm.reset()">
               Course Done
             </button>
+            <button  *ngIf="AuthenticatorProvider.user && courseAdded" ion-button full color="primary" (click)="save();">Save Progress</button>
           </div>
         </div>
       </div>

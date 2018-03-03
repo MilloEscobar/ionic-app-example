@@ -42,7 +42,7 @@ export class HttpServiceProvider {
 
   //user
 
-  updateUser() {
-    return this.http.get("http://192.168.0.115:3000/logout");
+  updateUser(user) {
+    return this.http.post("http://localhost:3000/userUpdate", user, {withCredentials: true});
   }
 }

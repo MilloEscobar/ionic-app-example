@@ -4,6 +4,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
+import { HttpServiceProvider } from '../../providers/http-service/http-service';
 
 import { ListPage } from '../../pages/list/list';
 import { LoaderComponent } from '../../components/loader/loader';
@@ -20,26 +21,27 @@ export class DetailPage {
   selectedItem: any;
   checked:boolean = false;
   stepNumber:number = 0;
-  questionAnswer;
   questionNumber:number = 0;
   reading:boolean = false;
+  courseInArray;
 
   courseDoneAttr = { title: 'Courses', component: ListPage };
 
   constructor(
     private AuthenticatorProvider:AuthenticatorProvider,
     public loader:LoaderComponent , 
-    public navCtrl: NavController, 
-    public navParams: NavParams,
+    private navCtrl: NavController, 
+    private navParams: NavParams,
     private sanitizer: DomSanitizer, 
-    private tts: TextToSpeech) {
+    private tts: TextToSpeech,
+    private httpService: HttpServiceProvider) {
     // If we navigated to this page, we will have an item available as a nav param
 
      
     this.selectedItem = navParams.get('item');
 
     if (AuthenticatorProvider.user) {
-        var i = 0;
+      var i = 0;
        var found = AuthenticatorProvider.user["courses"].find(function(element) {
         if (element.id === navParams.get('item').id) {
           return element;
@@ -49,6 +51,9 @@ export class DetailPage {
 
       if (found) {
         console.log(AuthenticatorProvider.user["courses"][i]);
+        this.courseInArray = i;
+        this.stepNumber=AuthenticatorProvider.user["courses"][i].stepCurrent;
+        this.questionNumber=AuthenticatorProvider.user["courses"][i].questionNumber;
         this.courseAdded = true;
         this.selectedItem = found;
       }
@@ -95,37 +100,39 @@ export class DetailPage {
 
   check() {
     this.checked = true;
-    if (this.AuthenticatorProvider.user) {
-      this.selectedItem.stepCurrent++;
-      this.selectedItem.questionNumber++;
-    }
   }
 
   nextQuestion() {
     this.checked = false;
     this.questionNumber++;
+    
     if (this.AuthenticatorProvider.user) {
-      this.selectedItem.stepCurrent++;
-      this.selectedItem.questionNumber++;
+           console.log(this.AuthenticatorProvider.user["courses"][this.courseInArray]); this.selectedItem["questionNumber"] ++;
     }
+    
+
   }
 
   prevQuestion() {
     this.checked = false;
     this.questionNumber--;
+    
     if (this.AuthenticatorProvider.user) {
-      this.selectedItem.stepCurrent++;
-      this.selectedItem.questionNumber++;
+           console.log(this.AuthenticatorProvider.user["courses"][this.courseInArray]); this.selectedItem["questionNumber"] --;
     }
+    
+
   }
 
   nextStep() {
     this.checked = false;
     this.stepNumber++;
     this.questionNumber = 0;
+    
     if (this.AuthenticatorProvider.user) {
-      this.selectedItem.stepCurrent++;
-      this.selectedItem.questionNumber++;
+      this.selectedItem["stepCurrent"] ++;
+      this.selectedItem["questionNumber"] = 0;
+      console.log(this.AuthenticatorProvider.user["courses"][this.courseInArray]);   
     }
     this.content.scrollToTop(2000);
   }
@@ -134,9 +141,11 @@ export class DetailPage {
     this.checked = false;
     this.stepNumber++;
     this.questionNumber = 0;
+    
     if (this.AuthenticatorProvider.user) {
-      this.selectedItem.stepCurrent++;
-      this.selectedItem.questionNumber++;
+      this.selectedItem["stepCurrent"] ++;
+      this.selectedItem["questionNumber"] = 0;
+      console.log(this.AuthenticatorProvider.user["courses"][this.courseInArray]);   
     }
     this.content.scrollToTop(2000);
   }
@@ -181,14 +190,46 @@ export class DetailPage {
 
   addToMyCourses() {
     if (this.AuthenticatorProvider.user) {
-      let courseToAdd = this.selectedItem;
-      courseToAdd.stepCurrent = 1;
-      courseToAdd.questionNumber = 1;
+      this.loader.loading = true;
+      this.selectedItem.stepCurrent = 0;
+      this.selectedItem.questionNumber = 0;
       this.AuthenticatorProvider.user["courses"].push(this.selectedItem);
-      this.courseAdded = true;
-      this.selectedItem = courseToAdd;
-      console.log(this.AuthenticatorProvider.user);
+      
+
+      this.httpService.updateUser({_id:this.AuthenticatorProvider.user["_id"],courses:this.AuthenticatorProvider.user["courses"]})
+        .subscribe(
+          data => {
+              this.courseAdded = true;
+              this.courseInArray = this.AuthenticatorProvider.user["courses"].length - 1;
+              
+              setTimeout(()=>{
+                this.loader.loading = false;
+              },1000);
+              console.log(data);
+          },
+          error => {     
+            console.log(error);
+          });
     }
-    
+  }
+
+  save() {
+    if (this.AuthenticatorProvider.user) {
+      this.loader.loading = true;
+      // this.AuthenticatorProvider.user["courses"][this.courseInArray] = this.selectedItem;
+      this.httpService.updateUser({_id:this.AuthenticatorProvider.user["_id"] ,courses:this.AuthenticatorProvider.user["courses"]})
+        .subscribe(
+          data => {
+              this.courseAdded = true;
+              
+              setTimeout(()=>{
+                this.loader.loading = false;
+              },1000);
+              console.log(data);
+          },
+          error => {     
+            console.log(error);
+          });
+    }
   }
 }
