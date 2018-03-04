@@ -43,6 +43,10 @@ export class HttpServiceProvider {
   //user
 
   updateUser(user) {
-    return this.http.post("http://localhost:3000/userUpdate", user, {withCredentials: true});
+    return this.http.put("http://localhost:3000/users/userUpdate", user, {withCredentials: true});
+  }
+
+  userUpdateCurses(user) {
+    return this.http.put("http://localhost:3000/users/userUpdateCurses", user, {withCredentials: true});
   }
 }

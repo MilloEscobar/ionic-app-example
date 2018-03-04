@@ -13,7 +13,6 @@ export class AuthenticatorProvider {
   user:any;
 
   constructor(public http: HttpClient) {
-    console.log('Hello AuthenticatorProvider Provider', {withCredentials: true});
   }
 
   register(user) {
