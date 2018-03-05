@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
+import { Storage } from '@ionic/storage';
+
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
 
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
@@ -46,22 +48,36 @@ export class HomePage {
     public loader:LoaderComponent , 
     public navCtrl: NavController, 
     private sanitizer: DomSanitizer, 
-    private camera: Camera) {
+    private camera: Camera,
+    private storage: Storage) {
 		
-    
-    if (navParams.get('page')) {
-      this.pageInfo = navParams.get('page');
-      console.log(this.pageInfo);
+    var that = this;
+    storage.get('user').then((val) => {
+      AuthenticatorProvider.user = val;
+      if (val) {
+        AuthenticatorProvider.logged = true;
+      }
+      this.set();
+      setTimeout(()=>{
+        that.loader.loading = false;
+      },1000);
+    });
+ 	}
+
+  set() {
+
+    if (this.navParams.get('page')) {
+      this.pageInfo = this.navParams.get('page');
     } else {
       this.pageInfo = { title: 'App Name', component: HomePage };
     }
-    if (AuthenticatorProvider.user) {
-      this.welcomeMessage = "Welcome " + AuthenticatorProvider.user["name"] + "!";
+    if (this.AuthenticatorProvider.user) {
+      this.welcomeMessage = "Welcome " + this.AuthenticatorProvider.user["name"] + "!";
     } else {
       this.welcomeMessage = "Welcome to " + this.pageInfo.title + "!";
     }
 
-    httpService.getLastCourses()
+    this.httpService.getLastCourses()
       .subscribe(
         data => {
             this.items =  data["data"];  
@@ -70,8 +86,8 @@ export class HomePage {
             
             if (error.error == "Username or password is incorrect") {
             }
-        });
-	}
+      });
+  }
 
   takePicture() {
     const options: CameraOptions = {
@@ -119,15 +135,13 @@ export class HomePage {
   }
 
 	ngOnInit() {
-    setTimeout(()=>{
-      this.loader.loading = false;
-    },1000);
+    this.set();
     this.urlImage = "https://thenypost.files.wordpress.com/2017/05/shutterstock_115473676.jpg?quality=90&strip=all&strip=all";
-  	}
+  }
 
-  	transformUrl(url){
-  		return this.sanitizer.bypassSecurityTrustResourceUrl(url)
-  	}
+	transformUrl(url){
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+	}
 
   ionViewDidLoad() {
     setTimeout(()=>{

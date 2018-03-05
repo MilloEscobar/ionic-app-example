@@ -163,7 +163,7 @@ export class RegisterPage {
                   password: { value:"", valid:false, errorMessage:null }, 
                   confirmPassword: { value:"", valid:false, errorMessage:null }
                 };
-              this.storage.set('name', data["data"]);
+              this.storage.set('user', data["data"]);
               this.navCtrl.setRoot(HomePage, {animate: false});
             } else {
               this.loader.loading = false;

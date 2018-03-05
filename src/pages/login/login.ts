@@ -88,7 +88,7 @@ export class LoginPage {
 
             this.AuthenticatorProvider.logged = true;
             this.AuthenticatorProvider.user = data["data"];
-            this.storage.set('name', data["data"]);
+            this.storage.set('user', data["data"]);
             this.navCtrl.setRoot(HomePage, {animate: false});
           } else {
             this.loader.loading = false;
