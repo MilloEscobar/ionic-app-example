@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
 
@@ -26,7 +27,8 @@ export class LoginPage {
     private AuthenticatorProvider:AuthenticatorProvider, 
     public loader: LoaderComponent, 
     public navCtrl: NavController, 
-    public navParams: NavParams){
+    public navParams: NavParams,
+    private storage: Storage){
 	}
 
 	// ngOnInit() {
@@ -83,9 +85,10 @@ export class LoginPage {
       .subscribe(
       data => {
           if (data["data"]) {
+
             this.AuthenticatorProvider.logged = true;
             this.AuthenticatorProvider.user = data["data"];
-            console.log(data);
+            this.storage.set('name', data["data"]);
             this.navCtrl.setRoot(HomePage, {animate: false});
           } else {
             this.loader.loading = false;

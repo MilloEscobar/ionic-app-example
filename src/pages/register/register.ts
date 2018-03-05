@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { FormControl, FormGroup } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
 
@@ -26,7 +26,8 @@ export class RegisterPage {
     private AuthenticatorProvider:AuthenticatorProvider, 
     public loader: LoaderComponent, 
     public navCtrl: NavController, 
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private storage: Storage) {
 
     this.errorMessage = null;
   }
@@ -162,6 +163,7 @@ export class RegisterPage {
                   password: { value:"", valid:false, errorMessage:null }, 
                   confirmPassword: { value:"", valid:false, errorMessage:null }
                 };
+              this.storage.set('name', data["data"]);
               this.navCtrl.setRoot(HomePage, {animate: false});
             } else {
               this.loader.loading = false;
