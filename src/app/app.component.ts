@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -29,7 +30,8 @@ export class MyApp {
     public loader:LoaderComponent ,
     public platform: Platform, 
     public statusBar: StatusBar, 
-    public splashScreen: SplashScreen) {
+    public splashScreen: SplashScreen,
+    private storage: Storage) {
 
     this.initializeApp();
 
@@ -87,6 +89,7 @@ export class MyApp {
     this.AuthenticatorProvider.loggout()
     .subscribe(
       data => {
+        this.storage.remove('user');
         this.AuthenticatorProvider.user = null; 
         this.AuthenticatorProvider.logged = false;
         this.nav.setRoot(HomePage, {

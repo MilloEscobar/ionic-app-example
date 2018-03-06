@@ -3,6 +3,7 @@ import { NavController, NavParams ,Content } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { Storage } from '@ionic/storage';
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 
@@ -34,6 +35,7 @@ export class DetailPage {
     private navParams: NavParams,
     private sanitizer: DomSanitizer, 
     private tts: TextToSpeech,
+    private storage: Storage,
     private httpService: HttpServiceProvider) {
     // If we navigated to this page, we will have an item available as a nav param
 
@@ -193,14 +195,20 @@ export class DetailPage {
       this.loader.loading = true;
       this.selectedItem.stepCurrent = 0;
       this.selectedItem.questionNumber = 0;
-      this.AuthenticatorProvider.user["courses"].push(this.selectedItem);
-      
+      let courses = this.AuthenticatorProvider.user["courses"]
+      courses.push(this.selectedItem);
 
-      this.httpService.updateUser({_id:this.AuthenticatorProvider.user["_id"],courses:this.AuthenticatorProvider.user["courses"]})
+      this.httpService.updateUser({_id:this.AuthenticatorProvider.user["_id"],courses:courses})
         .subscribe(
           data => {
-              this.courseAdded = true;
-              this.courseInArray = this.AuthenticatorProvider.user["courses"].length - 1;
+              if (data["status"] === "success") {
+                this.courseAdded = true;
+                this.AuthenticatorProvider.user["courses"] = courses;
+                this.courseInArray = this.AuthenticatorProvider.user["courses"].length - 1;
+                this.storage.set('user', this.AuthenticatorProvider.user);
+              } else {
+                
+              }
               
               setTimeout(()=>{
                 this.loader.loading = false;
