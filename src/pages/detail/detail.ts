@@ -198,7 +198,7 @@ export class DetailPage {
       let courses = this.AuthenticatorProvider.user["courses"]
       courses.push(this.selectedItem);
 
-      this.httpService.updateUser({_id:this.AuthenticatorProvider.user["_id"],courses:courses})
+      this.httpService.userUpdateCurses({_id:this.AuthenticatorProvider.user["_id"],courses:courses})
         .subscribe(
           data => {
               if (data["status"] === "success") {
@@ -225,7 +225,7 @@ export class DetailPage {
     if (this.AuthenticatorProvider.user) {
       this.loader.loading = true;
       // this.AuthenticatorProvider.user["courses"][this.courseInArray] = this.selectedItem;
-      this.httpService.updateUser({_id:this.AuthenticatorProvider.user["_id"] ,courses:this.AuthenticatorProvider.user["courses"]})
+      this.httpService.userUpdateCurses({_id:this.AuthenticatorProvider.user["_id"] ,courses:this.AuthenticatorProvider.user["courses"]})
         .subscribe(
           data => {
               this.courseAdded = true;
