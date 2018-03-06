@@ -9,6 +9,9 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class HttpServiceProvider {
+  serviceLink = "macrobible.fr.openode.io";
+  // serviceLink = "localhost:3000";
+
 
 	pageInfo: any;
 	icons: string[] = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
@@ -21,13 +24,11 @@ export class HttpServiceProvider {
   }
   //Courses
   getCourses () {
-    // return this.http.get("http://localhost:3000/api/course");
-    return this.http.get("http://macrobible.fr.openode.io/api/course");
+    return this.http.get("http://"+this.serviceLink+"/api/course");
   }
 
   getLastCourses () {
-    // return this.http.get("http://localhost:3000/api/course/last/8");
-    return this.http.get("http://macrobible.fr.openode.io/api/course/last/8");
+    return this.http.get("http://"+this.serviceLink+"/api/course/last/8");
   }
 
   getCourse ()  {
@@ -45,12 +46,10 @@ export class HttpServiceProvider {
   //user
 
   updateUser(user) {
-    // return this.http.put("http://localhost:3000/users/userUpdate", user, {withCredentials: true});
-    return this.http.put("http://macrobible.fr.openode.io/users/userUpdate", user, {withCredentials: true});
+    return this.http.put("http://"+this.serviceLink+"/users/userUpdate", user, {withCredentials: true});
   }
 
   userUpdateCurses(user) {
-    // return this.http.put("http://localhost:3000/users/userUpdateCurses", user, {withCredentials: true});
-    return this.http.put("http://macrobible.fr.openode.io/users/userUpdateCurses", user, {withCredentials: true});
+    return this.http.put("http://"+this.serviceLink+"/users/userUpdateCurses", user, {withCredentials: true});
   }
 }

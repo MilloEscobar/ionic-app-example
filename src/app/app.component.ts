@@ -34,6 +34,7 @@ export class MyApp {
     private storage: Storage) {
 
     this.initializeApp();
+    
 
     // used for an example of ngFor and navigation
     this.pages = [
