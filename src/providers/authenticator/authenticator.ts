@@ -16,17 +16,18 @@ export class AuthenticatorProvider {
   }
 
   register(user) {
-  	// return this.http.post("http://macrobible.fr.openode.io/register", user);
-  	return this.http.post("http://localhost:3000/register", user, {withCredentials: true});
+  	return this.http.post("http://macrobible.fr.openode.io/register", user);
+  	// return this.http.post("http://localhost:3000/register", user, {withCredentials: true});
   }
 
   login(user) {
-    // return this.http.post("http://macrobible.fr.openode.io/login", user);
-    return this.http.post("http://localhost:3000/login", user, {withCredentials: true});
+    return this.http.post("http://macrobible.fr.openode.io/login", user);
+    // return this.http.post("http://localhost:3000/login", user, {withCredentials: true});
   }
 
   loggout() {
-    return this.http.get("http://localhost:3000/logout");
+    // return this.http.get("http://localhost:3000/logout");
+    return this.http.get("http://macrobible.fr.openode.io/logout");
   }
 
 }

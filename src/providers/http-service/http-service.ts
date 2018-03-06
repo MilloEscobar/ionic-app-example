@@ -17,36 +17,40 @@ export class HttpServiceProvider {
 	myItems: Array<{title: string, note: string, icon: string}>;
 
   constructor(public http: HttpClient) {
-    console.log('Hello HttpServiceProvider Provider');
+
   }
   //Courses
   getCourses () {
+    // return this.http.get("http://localhost:3000/api/course");
     return this.http.get("http://macrobible.fr.openode.io/api/course");
   }
 
   getLastCourses () {
+    // return this.http.get("http://localhost:3000/api/course/last/8");
     return this.http.get("http://macrobible.fr.openode.io/api/course/last/8");
   }
 
   getCourse ()  {
-  	return {title: "string", note: "string", icon: "string"};
+
   }
 
   getMyCourses () {
 
   }
 
-  getMyCourse (): {title: string, note: string, icon: string} {
-  	return {title: "string", note: "string", icon: "string"};
+  getMyCourse (){
+
   }
 
   //user
 
   updateUser(user) {
-    return this.http.put("http://localhost:3000/users/userUpdate", user, {withCredentials: true});
+    // return this.http.put("http://localhost:3000/users/userUpdate", user, {withCredentials: true});
+    return this.http.put("http://macrobible.fr.openode.io/users/userUpdate", user, {withCredentials: true});
   }
 
   userUpdateCurses(user) {
-    return this.http.put("http://localhost:3000/users/userUpdateCurses", user, {withCredentials: true});
+    // return this.http.put("http://localhost:3000/users/userUpdateCurses", user, {withCredentials: true});
+    return this.http.put("http://macrobible.fr.openode.io/users/userUpdateCurses", user, {withCredentials: true});
   }
 }
