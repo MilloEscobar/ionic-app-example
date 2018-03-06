@@ -51,17 +51,28 @@ export class HomePage {
     private camera: Camera,
     private storage: Storage) {
 		
-    var that = this;
     storage.get('user').then((val) => {
       AuthenticatorProvider.user = val;
       if (val) {
         AuthenticatorProvider.logged = true;
       }
-      this.set();
+      
       setTimeout(()=>{
-        that.loader.loading = false;
+        this.set();
+        
       },1000);
     });
+
+    this.httpService.getLastCourses()
+      .subscribe(
+        data => {
+            this.items =  data["data"];  
+        },
+        error => {
+            
+            if (error.error == "Username or password is incorrect") {
+            }
+      });
  	}
 
   set() {
@@ -77,16 +88,7 @@ export class HomePage {
       this.welcomeMessage = "Welcome to " + this.pageInfo.title + "!";
     }
 
-    this.httpService.getLastCourses()
-      .subscribe(
-        data => {
-            this.items =  data["data"];  
-        },
-        error => {
-            
-            if (error.error == "Username or password is incorrect") {
-            }
-      });
+    this.loader.loading = false;
   }
 
   takePicture() {
