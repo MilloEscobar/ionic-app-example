@@ -55,7 +55,7 @@ export class MyApp {
       this.statusBar.overlaysWebView(true);
       this.statusBar.styleDefault();
       this.statusBar.styleBlackOpaque();
-      // this.splashScreen.hide();
+      this.splashScreen.hide();
     });
   }
 
