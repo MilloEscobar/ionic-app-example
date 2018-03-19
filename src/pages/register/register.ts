@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
@@ -27,6 +27,7 @@ export class RegisterPage {
     public loader: LoaderComponent, 
     public navCtrl: NavController, 
     public navParams: NavParams,
+    private alertCtrl: AlertController,
     private storage: Storage) {
 
     this.errorMessage = null;
@@ -154,24 +155,24 @@ export class RegisterPage {
       this.AuthenticatorProvider.register(user)
         .subscribe(
         data => {
-            if (data["data"]) {
-              this.AuthenticatorProvider.logged = true;
-              this.AuthenticatorProvider.user = data["data"];
-              this.registerForm = {
-                  name: { value:"", valid:false, errorMessage:null },
-                  username: { value:"", valid:false, errorMessage:null }, 
-                  password: { value:"", valid:false, errorMessage:null }, 
-                  confirmPassword: { value:"", valid:false, errorMessage:null }
-                };
-              this.storage.set('user', data["data"]);
-              this.navCtrl.setRoot(HomePage, {animate: false});
-            } else {
+            if (data["status"]=='error') {
               this.loader.loading = false;
-              this.errorMessage = "Something went wrong, please try again later";
+              return this.presentAlert(data['message']);
             }
+            this.AuthenticatorProvider.logged = true;
+            this.AuthenticatorProvider.user = data["data"];
+            this.registerForm = {
+                name: { value:"", valid:false, errorMessage:null },
+                username: { value:"", valid:false, errorMessage:null }, 
+                password: { value:"", valid:false, errorMessage:null }, 
+                confirmPassword: { value:"", valid:false, errorMessage:null }
+              };
+            this.storage.set('user', data["data"]);
+            this.navCtrl.setRoot(HomePage, {animate: false});
         },
         error => {
             this.loader.loading = false;
+            this.presentAlert(error);
             this.errorMessage = "Something went wrong, please try again later";
         });
     }
@@ -183,4 +184,12 @@ export class RegisterPage {
     this.navCtrl.setRoot(HomePage, {animate: false});
   }
 
+  presentAlert(msj) {
+    let alert = this.alertCtrl.create({
+      title: 'Algo salio mal',
+      subTitle: msj,
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
 }

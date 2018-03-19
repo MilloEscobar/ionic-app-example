@@ -1,6 +1,6 @@
 {
-  "name": "app2",
-  "app_id": "",
+  "name": "macroBible",
+  "app_id": "com.wildlemonscr.macrobible",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

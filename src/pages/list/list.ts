@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams , AlertController} from 'ionic-angular';
 
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
 
@@ -41,6 +41,7 @@ export class ListPage {
     private AuthenticatorProvider:AuthenticatorProvider,
     public navCtrl: NavController, 
     public navParams: NavParams, 
+    private alertCtrl: AlertController,
     public httpService: HttpServiceProvider) {
     // If we navigated to this page, we will have an item available as a nav param
     this.pageInfo = navParams.get('page');
@@ -49,12 +50,16 @@ export class ListPage {
       httpService.getCourses()
       .subscribe(
         data => {
-            // console.log(data["data"]);  
+            // console.log(data["data"]);
+            if (data["status"] == "error") {
+              return this.presentAlert(data["message"]);
+            }
             this.items =  data["data"];  
         },
         error => {
             
             if (error.error == "Username or password is incorrect") {
+              this.presentAlert(error);
             }
         });
     
@@ -81,6 +86,15 @@ export class ListPage {
     this.navCtrl.push(DetailPage, {
       item: item
     },{animate: false});
+  }
+
+  presentAlert(msj) {
+    let alert = this.alertCtrl.create({
+      title: 'Algo salio mal',
+      subTitle: msj,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 
 }

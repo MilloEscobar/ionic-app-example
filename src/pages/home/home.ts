@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -49,6 +49,7 @@ export class HomePage {
     public navCtrl: NavController, 
     private sanitizer: DomSanitizer, 
     private camera: Camera,
+    private alertCtrl: AlertController,
     private storage: Storage) {
 		
     storage.get('user').then((val) => {
@@ -56,16 +57,15 @@ export class HomePage {
       if (val) {
         AuthenticatorProvider.logged = true;
       }
-      
-      setTimeout(()=>{
         this.set();
-        
-      },1000);
     });
 
     this.httpService.getLastCourses()
       .subscribe(
         data => {
+          if (data["status"]=="error") {
+            return this.presentAlert(data["message"]);
+          }
             this.items =  data["data"];  
         },
         error => {
@@ -105,6 +105,7 @@ export class HomePage {
      this.urlImage = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
      // Handle error
+     this.presentAlert("La camara no se pudo abrir");
     });
   }
 
@@ -158,6 +159,15 @@ export class HomePage {
     this.navCtrl.push(DetailPage, {
       item: item
     },{animate: false});
+  }
+
+  presentAlert(msj) {
+    let alert = this.alertCtrl.create({
+      title: 'Algo salio mal',
+      subTitle: msj,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 
 }

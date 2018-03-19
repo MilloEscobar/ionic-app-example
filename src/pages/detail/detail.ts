@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { NavController, NavParams ,Content } from 'ionic-angular';
+import { NavController, NavParams ,Content , AlertController} from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech';
@@ -36,6 +36,7 @@ export class DetailPage {
     private sanitizer: DomSanitizer, 
     private tts: TextToSpeech,
     private storage: Storage,
+    private alertCtrl: AlertController,
     private httpService: HttpServiceProvider) {
     // If we navigated to this page, we will have an item available as a nav param
 
@@ -172,6 +173,7 @@ export class DetailPage {
     })
     .catch((reason: any) => {
       this.error = reason;
+      this.presentAlert('Algo salio mal',reason);
       console.log(reason)
     });
     this.reading = true;
@@ -184,6 +186,7 @@ export class DetailPage {
     })
     .catch((reason: any) => {
       this.error = reason;
+      this.presentAlert('Algo salio mal',reason);
       console.log(reason)
     });
     this.reading = false;
@@ -206,8 +209,9 @@ export class DetailPage {
                 this.AuthenticatorProvider.user["courses"] = courses;
                 this.courseInArray = this.AuthenticatorProvider.user["courses"].length - 1;
                 this.storage.set('user', this.AuthenticatorProvider.user);
+                this.presentAlert(this.selectedItem.name, "The course was addeed");
               } else {
-                
+                this.presentAlert('Algo salio mal', data['message']);
               }
               
               setTimeout(()=>{
@@ -216,6 +220,7 @@ export class DetailPage {
               console.log(data);
           },
           error => {     
+            this.presentAlert('Algo salio mal', error);
             console.log(error);
           });
     }
@@ -228,16 +233,28 @@ export class DetailPage {
       this.httpService.userUpdateCurses({_id:this.AuthenticatorProvider.user["_id"] ,courses:this.AuthenticatorProvider.user["courses"]})
         .subscribe(
           data => {
+            if (data["status"]== 'error') {
+              return this.presentAlert('Algo salio mal',data['message']);
+            }
               this.courseAdded = true;
               
               setTimeout(()=>{
                 this.loader.loading = false;
               },1000);
-              console.log(data);
           },
           error => {     
+            this.presentAlert('Algo salio mal',error);
             console.log(error);
           });
     }
+  }
+
+  presentAlert(title,msj) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msj,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 }

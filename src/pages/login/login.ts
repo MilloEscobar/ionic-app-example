@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { AuthenticatorProvider } from '../../providers/authenticator/authenticator';
@@ -28,6 +28,7 @@ export class LoginPage {
     public loader: LoaderComponent, 
     public navCtrl: NavController, 
     public navParams: NavParams,
+    private alertCtrl: AlertController,
     private storage: Storage){
 	}
 
@@ -92,12 +93,14 @@ export class LoginPage {
             this.navCtrl.setRoot(HomePage, {animate: false});
           } else {
             this.loader.loading = false;
+            this.presentAlert(data['message']);
             this.errorMessage = data['message'];
           }
       },
       error => {
           this.loader.loading = false;
           this.errorMessage = "Something went wrong, please try again later";
+          this.presentAlert(error);
           console.log(error);
       });
 
@@ -108,4 +111,14 @@ export class LoginPage {
     this.loader.loading = true;
     this.navCtrl.setRoot(HomePage, {animate: false});
   }
+
+  presentAlert(msj) {
+    let alert = this.alertCtrl.create({
+      title: 'Algo salio mal',
+      subTitle: msj,
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
+
 }
