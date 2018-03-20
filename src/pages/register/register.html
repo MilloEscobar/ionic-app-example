@@ -66,10 +66,10 @@
       <span *ngIf="confirmPassword.touched && !registerForm.confirmPassword.valid">{{registerForm.confirmPassword.errorMessage}}</span></p>
 
     <div padding>
-      <button ion-button full type="submit" block color="success"
+      <button ion-button full type="submit" block clear
               [disabled]=" !registerForm.name.valid || !registerForm.username.valid || !registerForm.password.valid || !registerForm.confirmPassword.valid ">Register
       </button>
-      <button ion-button full (click)="cancel()" block color="dark">cancel</button>
+      <button ion-button full (click)="cancel()" block clear>cancel</button>
     </div>
 	</form >
 </ion-content>

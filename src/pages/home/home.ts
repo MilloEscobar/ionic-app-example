@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component,ViewChild  } from '@angular/core';
+import { NavController, NavParams, AlertController,Slides } from 'ionic-angular';
 import { DomSanitizer} from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -16,8 +16,10 @@ import { DetailPage } from '../detail/detail';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  @ViewChild(Slides) slides: Slides;
   pageInfo: any;
   urlImage;
+  tutorial = true;
 	url = "https://www.youtube.com/embed/fKopy74weus?"+"&theme=dark&color=white&autohide=1&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3";
   items: Array<{
                 id:  String,
@@ -91,6 +93,10 @@ export class HomePage {
     this.loader.loading = false;
   }
 
+  slideFinished(){
+    this.tutorial = false;
+  }
+
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
@@ -109,33 +115,33 @@ export class HomePage {
     });
   }
 
-  onScroll(event) {
-    let element = document.getElementById('ion-navbar').childNodes[0];
-    let title = document.getElementById('title-transparent').childNodes[0];
-    let opacityImage = document.getElementById('opacity-change');
-    let opacity = event.scrollTop / 154;
+  // onScroll(event) {
+  //   let element = document.getElementById('ion-navbar').childNodes[0];
+  //   let title = document.getElementById('title-transparent').childNodes[0];
+  //   let opacityImage = document.getElementById('opacity-change');
+  //   let opacity = event.scrollTop / 154;
 
-    if (element["style"]) {
-      if (event.scrollTop <= 154 ) {
-        opacityImage["style"].opacity = "" + opacity;
-      } 
+  //   if (element["style"]) {
+  //     if (event.scrollTop <= 154 ) {
+  //       opacityImage["style"].opacity = "" + opacity;
+  //     } 
 
-      if (event.scrollTop > 154 ) {  
-        opacityImage["style"].opacity = "1";
+  //     if (event.scrollTop > 154 ) {  
+  //       opacityImage["style"].opacity = "1";
         
-      } 
+  //     } 
 
-      if (event.scrollTop < 115 ) {
-        element["style"].backgroundColor = "rgba(0,0,0,0)";
-        title["style"].color = "rgba(255,255,255,0)";
-      }
+  //     if (event.scrollTop < 115 ) {
+  //       element["style"].backgroundColor = "rgba(0,0,0,0)";
+  //       title["style"].color = "rgba(255,255,255,0)";
+  //     }
       
-      if (event.scrollTop >= 115 ) {
-        element["style"].backgroundColor = "rgba(0,0,0,1)";
-        title["style"].color = "rgba(255,255,255,1)";
-      }
-    }
-  }
+  //     if (event.scrollTop >= 115 ) {
+  //       element["style"].backgroundColor = "rgba(0,0,0,1)";
+  //       title["style"].color = "rgba(255,255,255,1)";
+  //     }
+  //   }
+  // }
 
 	ngOnInit() {
     this.set();

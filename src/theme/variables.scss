@@ -43,10 +43,12 @@ $colors: (
   dark:       #222,
   white:      #fff,
   black:      #000,
+  greenMain :#287365
 );
 
 $spinner-md-crescent-color : white;
-$border-bottom-input: #dedede;
+$border-bottom-input: white;
+$font-color:color($colors, white , base);
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

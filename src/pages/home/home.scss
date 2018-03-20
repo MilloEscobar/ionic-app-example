@@ -1,7 +1,25 @@
-page-home {
-	.scroll-content,.fixed-content {
-		margin: 0 !important;
+.swiper-pagination-fraction, 
+.swiper-pagination-custom, 
+.swiper-container-horizontal > .swiper-pagination-bullets {
+	bottom: 20%;
+
+}
+
+.swiper-container-horizontal > .swiper-pagination-bullets {
+	.swiper-pagination-bullet {
+		background-color: transparent;
+		border: 1px solid  color($colors, white , base);
+		&.swiper-pagination-bullet-active {
+			background-color:color($colors, white , base);
+		}
 	}
+}
+
+page-home {
+	ion-content {
+		background-image: url(../assets/imgs/Home.jpg);
+	}
+	
 	#title-transparent .toolbar-title {
 		color: transparent;
 	}

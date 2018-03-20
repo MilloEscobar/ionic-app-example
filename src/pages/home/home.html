@@ -7,16 +7,31 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content (ionScroll)="onScroll($event)">
-  <div class="home-image">
+<ion-content>
+<!--   <div class="home-image">
     <div class="image" [ngStyle]="{'background-image': 'url(' + urlImage + ')'}"></div>
     <div class="opacity"></div>
     <div class="home-info">
       <h3 class="home-title" text-center>{{ welcomeMessage }}</h3>
     </div>
     <div id="opacity-change" class="opacity-change"></div>
-  </div>
-    <ion-list>
+  </div> -->
+
+  <ion-slides *ngIf="tutorial" pager="true">
+    <ion-slide padding>
+      <h1>Welcome</h1>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+    </ion-slide>
+    <ion-slide padding>
+      <h1>{{pageInfo.title}}</h1>
+      <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+    </ion-slide>
+    <ion-slide padding>
+      <h1>Thanks</h1>
+      <button ion-button (click)="slideFinished()" block clear>Done</button>
+    </ion-slide>
+  </ion-slides>
+    <ion-list padding-left padding-right>
     <button padding ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" dark class="course-item">
 <!--       <ion-thumbnail item-start class="course-item-thumbnail">
         <div class="image" [ngStyle]="{'background-image': 'url(' + item.media[0].url + ')'}"></div>

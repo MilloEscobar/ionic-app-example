@@ -1,40 +1,17 @@
 .course-item {
 	padding: 0;
-	&:nth-child(even) {
-		background: color($colors, light , base);
-	}
-
-	ion-thumbnail.course-item-thumbnail {
-		margin: 0;
-		position: relative;
-		overflow: hidden;
-		width: 10rem;
-		height: 100%;
-
-		.opacity {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			background: color($colors, black , base);
-			opacity: 0.3;
-		}
-
-		.image {
-			background-position: center center;
-			background-repeat: no-repeat;
-			height: 100%;
-			width: 100%;
-			top: 0;
-			left: 0;
-			background-size: cover;
-			position: absolute;
-		}
-	}
-
+	background: transparent;
+	color: $font-color;
+	padding: 1rem;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
 	.item-inner {
 		padding-left: 10px;
 		border: none !important;
+	}
+}
+
+page-list {
+	ion-content {
+		background-image: url(../assets/imgs/MyCourses.jpg);
 	}
 }

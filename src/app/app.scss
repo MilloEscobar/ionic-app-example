@@ -18,6 +18,28 @@
 
 ion-content *{
 	font-family: 'Lato', sans-serif;
+	color: $font-color;
+}
+
+ion-content {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	.button.button-md.button-clear-md {
+		background-color: transparent !important;
+		border: 1px solid $border-bottom-input !important;
+		border-radius: 100px;
+		color: $font-color;
+	}
+
+	.item.item-block.item-md {
+		background-color: transparent;
+	}
+}
+.scroll-content,.fixed-content {
+	margin: 0 !important;
+	padding-top: 56px;
 }
 
 ion-header.header {
@@ -25,18 +47,23 @@ ion-header.header {
 		display: none;
 	}
 }
-.toolbar.transparent-navbar {
+
+.scroll-content {
+	background-color: rgba(15, 182, 156,0.8);
+}
+.toolbar.transparent-navbar ,
+.transparent-navbar{
 	.toolbar-background {
 		background-color: rgba(0,0,0,0.0);
 	}
 	.toolbar-content , .toolbar-title {
-		color: color($colors, white , base);
+		color: $font-color;
 		font-weight: lighter;
 		font-size: 16px;
 		padding-left: 0;
 	}
 	.button-inner , .back-button-icon{
-		color: color($colors, white , base);
+		color: $font-color;
 		font-weight: lighter;
 		// font-size: 20px;
 	}
@@ -62,35 +89,23 @@ ion-header.header {
 	}
 }
 
-.item-md.item-block.item-input.ng-valid.item-input-has-value .item-inner, 
-.item-md.item-block.item-input.ng-invalid .item-input-has-value .item-inner,
-.item-md.item-block.item-input.ng-valid .item-inner,
-.item-md.item-block.item-input.ng-invalid .item-inner { 
-	border-bottom: 2px solid $border-bottom-input;
-    box-shadow: none;
-}
-
-.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
-	border-bottom: 2px solid $border-bottom-input;
-    box-shadow: none;
-}
-
-.ng-is-valid {
-	.item-inner{
-		border-bottom: 2px color($colors, success , base) solid !important;
-	}
-}
-
-.ng-is-invalid {
-	.item-inner{
-		border-bottom: 2px color($colors, danger , base) solid !important;
-	}
-}
 
 .transparent {
 	color: transparent;
 	background-color: transparent;
 }
+
+.beginer {
+	color: color($colors, success , base);
+}
+.intermediate {
+	color: color($colors, warning , base);;
+}
+.advanced {
+	color: color($colors, danger , base);;
+}
+
+//LAYOUT 
 
 .no-margin {
 	margin: 0 !important;
@@ -117,12 +132,43 @@ ion-header.header {
 }
 
 
-.beginer {
-	color: color($colors, success , base);
+//INPUTS
+
+.item-md.item-block.item-input.ng-valid.item-input-has-value .item-inner, 
+.item-md.item-block.item-input.ng-invalid .item-input-has-value .item-inner,
+.item-md.item-block.item-input.ng-valid .item-inner,
+.item-md.item-block.item-input.ng-invalid .item-inner { 
+	border-bottom: 2px solid $border-bottom-input;
+    box-shadow: none;
+    background-color: transparent;
 }
-.intermediate {
-	color: color($colors, warning , base);;
+
+.item-md.item-block.item-input { 
+	border-bottom: none;
+    box-shadow: none;
+    padding: 0 2rem;
+    background-color: transparent !important;
+    color: $font-color;
+
+    input {
+    	color: $font-color;
+    }
 }
-.advanced {
-	color: color($colors, danger , base);;
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+	border-bottom: 2px solid $border-bottom-input;
+    box-shadow: none;
+}
+
+.ng-is-valid {
+	.item-inner{
+		border-bottom: 2px color($colors, success , base) solid !important;
+	}
+}
+
+.ng-is-invalid {
+	.item-inner{
+		border-bottom: 2px color($colors, danger , base) solid !important;
+	}
 }
